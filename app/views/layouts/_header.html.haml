@@ -1,0 +1,26 @@
+%header.navbar.navbar-inverse.navbar-fixed-top
+  .container
+    - if user_signed_in?
+      %button{class: "navbar-toggle", type: "button", data: {target: "#header_collapse", toggle: "collapse"}}
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+    .navbar-header
+      = link_to "Dating Site", root_path, class: "navbar-brand"
+    - if user_signed_in?
+      #header_collapse.collapse.navbar-collapse
+        %ul.nav.navbar-nav
+          - header_links.each do |key, link|
+            = content_tag :li, class: (current_page?(link[:path]) ? 'active' : '') do
+              = link_to raw(link[:text]), link[:path], id: link[:id]
+        %ul.nav.navbar-nav.navbar-right
+          %li= link_to 'Logout', destroy_user_session_path, method: :delete
+- if content_for? :header
+  .page-header
+    .container
+      = yield(:header)
+- elsif content_for? :title
+  .page-header
+    .container
+      = content_tag :h1, yield(:title)
+

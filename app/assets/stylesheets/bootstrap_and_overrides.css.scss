@@ -1,0 +1,43 @@
+@import "bootstrap.min";
+body { padding-top: 50px; }
+/* Sticky footer styles
+-------------------------------------------------- */
+
+html,
+body {
+  height: 100%;
+  /* The html and body elements cannot have any padding or margin. */
+
+  // prevent long words from leaving their containers
+  word-wrap: break-word;
+}
+
+/* Wrapper for page content to push down footer */
+#wrap {
+
+  // Move header margin into padding to fix footer
+  .page-header {
+    padding-top: 40px;
+    margin-top: 0;
+  }
+
+  ul.dropdown-menu {
+    z-index: 9999;
+  }
+
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  /* Negative indent footer by its height */
+  margin: 0 auto -60px;
+  /* Pad bottom by footer height */
+  padding: 0 0 60px;
+}
+
+/* Set the fixed height of the footer here */
+#footer {
+  height: 60px;
+  background-color: #f5f5f5;
+}
+
+@import "bootstrap-theme.min";
