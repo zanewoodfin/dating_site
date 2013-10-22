@@ -39,7 +39,7 @@ gem 'browser-timezone-rails'
 
 gem 'will_paginate'
 gem 'bootstrap-will_paginate', git: 'git://github.com/yrgoldteeth/bootstrap-will_paginate.git'
-gem 'bootstrap-sass'
+gem 'bootstrap-sass', github: 'thomas-mcdonald/bootstrap-sass'
 
 group :develop do
   gem 'pry-rails'

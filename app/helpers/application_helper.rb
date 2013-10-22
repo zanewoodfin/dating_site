@@ -41,6 +41,8 @@ module ApplicationHelper
 
   def header_links
     {
+      members: header_hash('Members', users_path, 'members'),
+      blocked: header_hash('Blocked', blocked_users_path, 'blocked')
     }
   end
 

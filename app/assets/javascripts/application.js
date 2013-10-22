@@ -13,6 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
-//= bootstrap.min
+//= require bootstrap
 //= browser_timezone_rails/application.js
 //= require_tree .

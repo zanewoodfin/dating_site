@@ -1,0 +1,13 @@
+- provide :title, 'Unfortunate Encounters'
+
+%ul#blocked_users.nav.nav-tabs
+  %li.active
+    %a{href: '#blocking', :'data-toggle' => 'tab'} Blocking
+  %li
+    %a{href: '#blocked_by', :'data-toggle' => 'tab'} Blocked By
+
+.tab-content
+  #blocking.tab-pane.active
+    = render @blocked
+  #blocked_by.tab-pane
+    = render @blocked_by
