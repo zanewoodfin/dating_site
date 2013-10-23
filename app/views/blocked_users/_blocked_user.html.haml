@@ -1,0 +1,10 @@
+- blocked = blocked_user.user == current_user ? blocked_user.blocked : blocked_user.user
+
+.panel.panel-default
+  .panel-body
+    .col-sm-6
+      = blocked.username
+    - unless current_user == blocked
+      .col-sm-6
+        = link_to "Unblock", blocked_user_path(blocked_user), method: :delete
+

@@ -19,5 +19,21 @@ module DatingSite
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
+
+    # ActionMailer
+    config.action_mailer.delivery_method = :smtp
+    config.action_mailer.smtp_settings = {
+      address: "smtp.gmail.com",
+      port: 587,
+      domain: "zanewoodfin.com",
+      user_name: ENV['SMTP_USERNAME'],
+      password: ENV['SMTP_PASSWORD'],
+      authentication: "plain",
+      enable_starttls_auto: true
+    }
+
+    config.serve_static_assets = true
+
+    WillPaginate.per_page = 10
   end
 end

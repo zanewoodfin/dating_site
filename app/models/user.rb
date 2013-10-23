@@ -4,6 +4,12 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  # username validations
+  validates :username,
+    presence: true,
+    uniqueness: { case_sensitive: false },
+    length: 3..20
+
   # blocked users
   has_many :blocked_users, dependent: :destroy
   has_many :blocked, through: :blocked_users
@@ -11,4 +17,9 @@ class User < ActiveRecord::Base
   # blocking users
   has_many :blocking_users, class_name: 'BlockedUser',  foreign_key: :blocked_id, dependent: :destroy
   has_many :blocked_by, through: :blocking_users, source: :user
+
+  def unblocked
+    User.where.not(id: blocked + blocked_by << id)
+  end
+
 end

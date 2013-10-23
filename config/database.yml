@@ -20,6 +20,7 @@ test:
 
 production:
   adapter: postgresql
+  encoding: unicode
   database: datingSiteProductionDb
   pool: 5
   timeout: 5000
