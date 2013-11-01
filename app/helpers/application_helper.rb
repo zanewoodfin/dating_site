@@ -33,13 +33,17 @@ module ApplicationHelper
 
   def host
     if Rails.env.production?
-      "http://zanes-social-network.herokuapp.com/"
+      ""
     else
       "http://localhost:3000/"
     end
   end
 
   def header_links
+    {
+      my_profile: header_hash('My Profile', current_user, 'my_profile'),
+      logout: header_hash('Logout', destroy_user_session_path, 'logout', :delete)
+    }
   end
 
   def additional_header_links
@@ -58,14 +62,28 @@ module ApplicationHelper
     formatted_time.gsub(/0(\d:\d\d)/) { $1 }
   end
 
+  def build_select(type, clazz)
+    set = clazz.const_get(type.upcase)
+    [type,
+      {
+        collection: (0...set.length).map { |index| [set[index], index] },
+        include_blank: false
+      }
+    ]
+  end
+
+  def populate_row(instance, attribute)
+    "<td>#{attribute.to_s.gsub(/_/, ' ')}</td><td>#{instance.to_s attribute}</td>"
+  end
+
 private
 
-  def header_hash(text, path, id)
+  def header_hash(text, path, id, method = false)
     {
       text: text,
       path: path,
       id: "header_#{id}"
-    }
+    }.tap { |hash| hash[:method] = method if method }
   end
 
   def create_badge(num)

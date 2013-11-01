@@ -24,6 +24,9 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  # constants
+
+
   # username validations
   validates :username,
     presence: true,
@@ -39,7 +42,9 @@ class User < ActiveRecord::Base
   has_many :blocked_by, through: :blocking_users, source: :user
 
   # info
-  has_one :basic_info, dependent: :destroy
+  has_one :physical_info, dependent: :destroy
+  has_one :sexual_info, dependent: :destroy
+  has_one :social_info, dependent: :destroy
 
   def unblocked
     User.where.not(id: blocked + blocked_by << id)

@@ -1,0 +1,6 @@
+= simple_form_for section_form, url: user_path(current_user), method: :patch do |f|
+  = f.input *build_select(:religion, SocialInfo)
+  = f.input *build_select(:smokes, SocialInfo)
+  = f.input *build_select(:drinks, SocialInfo)
+  = f.input *build_select(:drugs, SocialInfo)
+  = f.submit class: 'btn btn-primary'

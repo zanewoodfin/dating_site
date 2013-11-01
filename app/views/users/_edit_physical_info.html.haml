@@ -1,0 +1,13 @@
+= simple_form_for section_form, url: user_path(current_user), method: :patch do |f|
+  = f.input *build_select(:ethnicity, PhysicalInfo)
+  = f.input *build_select(:body_type, PhysicalInfo)
+  = f.input *build_select(:hair_color, PhysicalInfo)
+  = f.input *build_select(:body_hair, PhysicalInfo)
+  = f.input *build_select(:eye_color, PhysicalInfo)
+  .row
+    .col-sm-6
+      = f.input *build_select(:feet, PhysicalInfo)
+    .col-sm-6
+      = f.input *build_select(:inches, PhysicalInfo)
+  = f.input :weight
+  = f.submit class: 'btn btn-primary'

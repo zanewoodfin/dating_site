@@ -1,1 +1,19 @@
 - provide :title, @user.username
+%h2 Physical Info
+- if current_user == @user
+  = link_to 'Edit', edit_user_path(current_user, section: 'physical')
+- unless @user.physical_info.nil?
+  = render 'section', info: @user.physical_info
+
+%h2 Social Info
+- if current_user == @user
+  = link_to 'Edit', edit_user_path(current_user, section: 'social')
+- unless @user.social_info.nil?
+  = render 'section', info: @user.social_info
+
+%h2 Sexual Info
+- if current_user == @user
+  = link_to 'Edit', edit_user_path(current_user, section: 'sexual')
+- unless @user.sexual_info.nil?
+  = render 'section', info: @user.sexual_info
+
