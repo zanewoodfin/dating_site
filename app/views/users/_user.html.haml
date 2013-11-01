@@ -1,6 +1,6 @@
 .panel.panel-default
   .panel-body
     .col-sm-6
-      = user.username
+      = link_to user.username, user
     .col-sm-6
       = link_to "Block" , blocked_users_path(blocked_id: user), method: :post

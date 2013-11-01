@@ -11,4 +11,8 @@ protected
     devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:username, :email, :password, :password_confirmation) }
   end
 
+  def check_if_blocked
+    @user.blocked.include? current_user
+  end
+
 end

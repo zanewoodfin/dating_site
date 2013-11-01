@@ -16,5 +16,14 @@
 
       / body
       .container
-        = yield
+        - if content_for? :title
+          %h1= yield(:title)
+        - if content_for? :sidebar
+          .col-md-3.hidden-xs.visible-md= yield :sidebar
+          .col-xs-12.col-md-9= yield
+        - else
+          .col-xs-12= yield
+
+    / footer
+    = render 'layouts/footer'
 

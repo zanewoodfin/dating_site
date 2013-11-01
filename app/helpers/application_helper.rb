@@ -1,5 +1,5 @@
 module ApplicationHelper
-  BASE_TITLE = "The Network"
+  BASE_TITLE = "Dating Site"
 
   def full_title(page_title = '')
     if page_title.empty?
@@ -40,6 +40,9 @@ module ApplicationHelper
   end
 
   def header_links
+  end
+
+  def additional_header_links
     {
       members: header_hash('Members', users_path, 'members'),
       blocked: header_hash('Blocked', blocked_users_path, 'blocked')
