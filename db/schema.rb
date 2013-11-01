@@ -11,7 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131022180407) do
+ActiveRecord::Schema.define(version: 20131101160739) do
+
+  create_table "basic_infos", force: true do |t|
+    t.integer  "height",     default: 0
+    t.integer  "body_type",  default: 0
+    t.integer  "weight",     default: 0
+    t.integer  "religion",   default: 0
+    t.integer  "smokes",     default: 0
+    t.integer  "drinks",     default: 0
+    t.integer  "drugs",      default: 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "blocked_users", force: true do |t|
     t.integer  "user_id"
