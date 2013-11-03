@@ -1,0 +1,27 @@
+jQuery ->
+  # polling
+  location = '<%= (Rails.env.production? ? '' : '/users/poll') %>'
+<%#
+  updatePage = ->
+    $.ajax location,
+      type: 'GET'
+      dataType: 'script'
+      success: ->
+        setTimeout updatePage, 10000
+  setTimeout updatePage, 10000
+
+  # remove flash messages on tab clicks
+  $('ul.nav-tabs').children('li').children('a').click ->
+    $("#flash_messages").html("")
+%>
+
+  # smooth scroll to top with footer link
+  $('#scroll_top').click ->
+    $('html, body').stop().animate(
+      scrollTop: 0
+    , 'fast')
+<%#
+  # submit search on change
+  $('input#search_form_search_for').on 'input', ->
+    $('form#new_search_form').submit()
+%>

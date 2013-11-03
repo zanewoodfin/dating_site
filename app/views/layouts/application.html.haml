@@ -15,7 +15,7 @@
       = render 'layouts/header'
 
       / body
-      .container
+      #main.container
         - if content_for? :title
           %h1= yield(:title)
         - if content_for? :sidebar
