@@ -1,3 +1,7 @@
 = simple_form_for section_form, url: user_path(current_user), method: :patch do |f|
-  = f.input :about_me, as: :text
+
+  = f.input :headline
+
+  = f.input :about_me, as: :text, input_html: {rows: 10}
+
   = f.submit class: 'btn btn-primary'

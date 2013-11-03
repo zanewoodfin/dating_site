@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131103061107) do
+ActiveRecord::Schema.define(version: 20131103183702) do
 
   create_table "blocked_users", force: true do |t|
     t.integer  "user_id"
@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 20131103061107) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "headline"
   end
 
   create_table "physical_infos", force: true do |t|

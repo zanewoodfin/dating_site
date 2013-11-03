@@ -1,5 +1,14 @@
-%table.table
-  %tbody
-    - info.display_attributes.each do |attribute|
-      %tr
-        = raw populate_row(info, attribute) unless info.public_send(attribute) == 0
+- info = user.public_send("#{section}_info")
+
+.panel.panel-default
+  .panel-heading
+    %h4= "#{section.capitalize} Info"
+  - if current_user == user
+    .panel-body
+      = link_to 'Edit', edit_user_path(current_user, section: section)
+  - unless info.nil?
+    %table.table
+      %tbody
+        - info.display_attributes.each do |attribute|
+          %tr
+            = raw populate_row(info, attribute) unless info.public_send(attribute) == 0

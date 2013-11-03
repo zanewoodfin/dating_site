@@ -1,7 +1,8 @@
 #image_carousel {
+  height: 400px;
 
   img {
-    height: 400px;
+    max-height: 400px;
     margin: auto;
   }
 }
