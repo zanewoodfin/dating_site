@@ -1,4 +1,5 @@
 class BlockedUsersController < ApplicationController
+
   def index
     @blocked = current_user.blocked_users
     @blocked_by = current_user.blocking_users
@@ -12,7 +13,9 @@ class BlockedUsersController < ApplicationController
 
   def destroy
     @blocked_user = BlockedUser.find(params[:id])
-    @valid = @blocked_user.destroy
+    if @blocked_user.user == current_user
+      @valid = @blocked_user.destroy
+    end
     redirect_to users_path
   end
 

@@ -19,6 +19,6 @@ class BlockedUser < ActiveRecord::Base
 private
 
   def user_does_not_equal_blocked
-    self.errors.add(:base, 'cannot block yourself')
+    self.errors.add(:base, 'cannot block yourself') if :user == :blocked
   end
 end

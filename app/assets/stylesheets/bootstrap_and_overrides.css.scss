@@ -40,4 +40,30 @@ body {
   background-color: #f5f5f5;
 }
 
+.nav-tabs {
+  border-bottom: none;
+
+  li {
+    a {
+      border-color: rgb(221, 221, 221);
+      border-radius: 4px 4px 0 0;
+      border-style: solid;
+      border-width: 1px;
+    }
+
+    &:active a {
+      border-bottom: none;
+    }
+  }
+}
+
+.tab-pane {
+  background-color: WHITE;
+  border-color: rgb(221, 221, 221);
+  border-radius: 0 4px 4px 4px;
+  border-style: solid;
+  border-width: 1px;
+  padding: 20px;
+}
+
 @import "bootstrap/theme";

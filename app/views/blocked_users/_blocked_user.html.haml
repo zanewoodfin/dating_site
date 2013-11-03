@@ -1,7 +1,7 @@
-- blocked = blocked_user.user == current_user ? blocked_user.blocked : blocked_user.user
+- blocked = blocked_user.blocked
 
-.panel.panel-default
-  .panel-body
+.well
+  .row
     .col-sm-6
       - if current_user == blocked
         = blocked.username

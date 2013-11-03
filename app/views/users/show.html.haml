@@ -1,15 +1,19 @@
 - provide :title, @user.username
-- provide(:headline, @user.essay_info.headline) unless @user.essay_info.headline.blank?
+- provide(:headline, @user.essay_info.headline) unless @user.essay_info.nil? || @user.essay_info.headline.blank?
 
 .row
   .col-md-8
     = render 'image_carousel'
 
-    %h2 About me
+    %br
+
+    %h3 About me
     - if @user == current_user
       = link_to "Edit", edit_user_path(current_user, section: 'essay')
-    - unless @user.essay_info.nil? || @user.essay_info.about_me.nil?
-      = simple_format @user.essay_info.about_me, sanitize: true
+    .panel.panel-default
+      .panel-body
+        - unless @user.essay_info.nil? || @user.essay_info.about_me.nil?
+          = simple_format @user.essay_info.about_me, sanitize: true
 
   .col-md-4.col-md
     = render 'section', user: @user, section: 'physical'
