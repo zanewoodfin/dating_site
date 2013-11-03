@@ -33,17 +33,37 @@ class UsersController < ApplicationController
   def update
     section = false
     if params[:physical_info]
-      @physical_info = current_user.build_physical_info(physical_params)
-      section = 'physical' unless @physical_info.save
+      @physical_info = PhysicalInfo.new(physical_params)
+      if @physical_info.save
+        current_user.physical_info = @physical_info
+        current_user.save
+      else
+        section = 'physical'
+      end
     elsif params[:social_info]
-      @social_info = current_user.build_social_info(social_params)
-      section = 'social' unless @social_info.save
+      @social_info = SocialInfo.new(social_params)
+      if @social_info.save
+        current_user.social_info = @social_info
+        current_user.save
+      else
+        section = 'social'
+      end
     elsif params[:sexual_info]
-      @sexual_info = current_user.build_sexual_info(sexual_params)
-      section = 'sexual' unless @sexual_info.save
+        @sexual_info = SexualInfo.new(sexual_params)
+      if @sexual_info.save
+        current_user.sexual_info = @sexual_info
+        current_user.save
+      else
+        section = 'sexual'
+      end
     elsif params[:essay_info]
-      @essay_info = current_user.build_essay_info(essay_params)
-      section = 'essay' unless @essay_info.save
+       @essay_info = EssayInfo.new(essay_params)
+      if @essay_info.save
+        current_user.essay_info = @essay_info
+        current_user.save
+      else
+        section = 'essay'
+      end
     end
 
     if section

@@ -25,13 +25,14 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   # constants
-
+  WORD_CHARS = /\A\w+\z/
 
   # username validations
   validates :username,
     presence: true,
     uniqueness: { case_sensitive: false },
-    length: 3..20
+    length: 3..20,
+    format: { with: WORD_CHARS }
 
   # blocked users
   has_many :blocked_users, dependent: :destroy

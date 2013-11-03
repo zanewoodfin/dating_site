@@ -7,7 +7,7 @@
   - if @user == current_user
     = link_to "Edit", edit_user_path(current_user, section: 'essay')
   - unless @user.essay_info.nil? || @user.essay_info.about_me.nil?
-    %p= @user.essay_info.about_me
+    = simple_format @user.essay_info.about_me, sanitize: true
 
 .col-md-4.col-md
   .panel.panel-default

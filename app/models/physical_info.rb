@@ -64,6 +64,9 @@ class PhysicalInfo < ActiveRecord::Base
 
   belongs_to :user
 
+  validates :weight,
+    inclusion: { in: 0..1500 }
+
   after_find :set_feet_inches
   before_save :convert_to_height
 
