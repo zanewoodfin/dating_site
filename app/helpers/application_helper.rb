@@ -41,15 +41,10 @@ module ApplicationHelper
 
   def header_links
     {
+      members: header_hash('Members', users_path, 'members'),
+      blocked: header_hash('Blocked', blocked_users_path, 'blocked'),
       my_profile: header_hash('My Profile', current_user, 'my_profile'),
       logout: header_hash('Logout', destroy_user_session_path, 'logout', :delete)
-    }
-  end
-
-  def additional_header_links
-    {
-      members: header_hash('Members', users_path, 'members'),
-      blocked: header_hash('Blocked', blocked_users_path, 'blocked')
     }
   end
 

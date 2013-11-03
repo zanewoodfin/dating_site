@@ -1,0 +1,25 @@
+#image_carousel.carousel.slide{:'data-ride' => 'carousel'}
+  / Indicators
+  %ol.carousel-indicators
+    %li.active{data: {target: '#image_carousel', :'slide-to' => '0'}}
+    %li.active{data: {target: '#image_carousel', :'slide-to' => '1'}}
+    %li.active{data: {target: '#image_carousel', :'slide-to' => '2'}}
+
+  / Wrapper for slides
+  .carousel-inner
+    .item.active
+      = image_tag 'deviant_butter.jpg', alt: 'deviant butter'
+      .carousel-caption deviant butter
+    .item
+      = image_tag 'hondas.jpg', alt: 'hondas'
+      .carousel-caption hondas
+    .item
+      = image_tag 'old_school.jpg', alt: 'old school'
+      .carousel-caption old school
+
+  / Controls
+  %a.left.carousel-control{href: "#image_carousel", :'data-slide' => "prev"}
+    %span.glyphicon.glyphicon-chevron-left
+  %a.right.carousel-control{href: "#image_carousel", :'data-slide' => "next"}
+    %span.glyphicon.glyphicon-chevron-right
+

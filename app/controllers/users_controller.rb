@@ -17,6 +17,8 @@ class UsersController < ApplicationController
       current_user.social_info || SocialInfo.new
     when 'sexual' then
       current_user.sexual_info || SexualInfo.new
+    when 'essay' then
+      current_user.essay_info || EssayInfo.new
     end
   end
 
@@ -39,6 +41,9 @@ class UsersController < ApplicationController
     elsif params[:sexual_info]
       @sexual_info = current_user.build_sexual_info(sexual_params)
       section = 'sexual' unless @sexual_info.save
+    elsif params[:essay_info]
+      @essay_info = current_user.build_essay_info(essay_params)
+      section = 'essay' unless @essay_info.save
     end
 
     if section
@@ -68,6 +73,10 @@ private
 
   def sexual_params
     params.require(:sexual_info).permit(:sexual_experience, :user_id)
+  end
+
+  def essay_params
+    params.require(:essay_info).permit(:about_me)
   end
 
 end
