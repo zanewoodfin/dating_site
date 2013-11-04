@@ -1,3 +1,8 @@
 - provide :title, "Conversation with #{@messages.first.other_person(current_user).username}"
 
-= render @messages
+#conversation
+  = render @messages
+
+= simple_form_for @message, remote: true do |f|
+  = render 'fields', f: f
+

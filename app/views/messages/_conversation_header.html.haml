@@ -1,7 +1,8 @@
-.row
-  = link_to message_path(0, contact_id: contact) do
-    .col-md-8
-      = contact.username
-    .col-md-3
-  .col-md-1
-    %input{type: 'checkbox'}
+%tr
+  %td
+    = link_to message_path(0, contact_id: contact) do
+      .panel
+        .panel-body
+          = contact.username
+  %td
+    = check_box_tag 'user_ids[]', contact.id

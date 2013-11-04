@@ -10,6 +10,7 @@ DatingSite::Application.routes.draw do
   resources :blocked_users
 
   # messages
+  post 'messages/mass_destroy' => 'messages#mass_destroy'
   resources :messages
 
   # users

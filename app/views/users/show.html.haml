@@ -2,7 +2,7 @@
 - provide(:headline, @user.essay_info.headline) unless @user.essay_info.nil? || @user.essay_info.headline.blank?
 
 .row
-  .col-md-8
+  .col-sm-8
     = render 'image_carousel'
 
     %br
@@ -15,7 +15,7 @@
         - unless @user.essay_info.nil? || @user.essay_info.about_me.nil?
           = simple_format @user.essay_info.about_me, sanitize: true
 
-  .col-md-4.col-md
+  .col-sm-4
     = render 'section', user: @user, section: 'physical'
 
     = render 'section', user: @user, section: 'social'

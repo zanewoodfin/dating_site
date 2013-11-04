@@ -1,1 +1,11 @@
-= render 'conversation', contacts: @contacts
+= form_tag controller: "messages", action: "mass_destroy" do
+
+  %table#message_table
+    %thead
+      %tr
+        %th{style: 'width: 85%;'} Message
+        %th Delete
+    %tbody
+    = render 'conversation', contacts: @contacts
+
+  = submit_tag 'Delete selected', class: 'btn btn-primary pull-right'

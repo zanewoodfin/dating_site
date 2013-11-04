@@ -3,7 +3,7 @@
 - else
   = f.hidden_field :recipient_id, value: @recipient.id
 
-= f.input :content, as: :text, input_html: { rows: 10 },
+= f.input :content, as: :text, input_html: { rows: 4 },
   label: "Message to #{ @recipient.username unless @recipient.nil?}"
 
-= f.submit class: 'btn btn-primary'
+= f.submit class: 'btn btn-primary', value: 'Send'

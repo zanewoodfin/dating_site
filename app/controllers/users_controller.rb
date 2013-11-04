@@ -27,7 +27,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    redirect_to(root_path) if @user.blocked.include?(current_user)
+    check_if_blocked
   end
 
   def update

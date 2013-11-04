@@ -1,0 +1,7 @@
+#message_table {
+  width: 100%;
+  th:nth-child(2), td:nth-child(2) {
+    vertical-align: middle;
+    text-align: center;
+  }
+}

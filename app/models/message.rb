@@ -20,9 +20,25 @@ class Message < ActiveRecord::Base
 
   validates_presence_of :sender, :recipient, :content
   validate :sender_does_not_equal_recipient
+  validate :sender_not_blocked
 
   def other_person(user)
     sender == user ? recipient : sender
+  end
+
+  def remove_user(user)
+    self.removed_by_sender = true if user == sender
+    self.removed_by_recipient = true if user == recipient
+    if removed_by_sender && removed_by_recipient
+      self.destroy
+    else
+      self.save
+    end
+  end
+  def self.remove_user(user, contacts)
+    where(sender_id: user.id, recipient_id: contacts).update_all(removed_by_sender: true)
+    where(recipient_id: user.id, sender_id: contacts).update_all(removed_by_recipient: true)
+    where(removed_by_sender: true, removed_by_recipient: true).delete_all
   end
 
 private
@@ -33,6 +49,10 @@ private
 
   def sender_does_not_equal_recipient
     self.errors.add(:base, 'cannot message yourself') if :sender == :recipient
+  end
+
+  def sender_not_blocked
+    self.errors.add(:base, 'this user has blocked you') if recipient.blocked.include? sender
   end
 
 end

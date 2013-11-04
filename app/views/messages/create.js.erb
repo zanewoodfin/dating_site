@@ -1,0 +1,4 @@
+<% if @valid %>
+  $('#conversation').append('<%= j render(partial: 'message', locals: { message: @message }) %>');
+  $('#message_content').val('');
+<% end %>

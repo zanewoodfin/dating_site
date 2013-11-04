@@ -59,7 +59,9 @@ class User < ActiveRecord::Base
   end
 
   def contacts
-    people = self.try(:senders) + self.try(:recipients)
+    senders = received_messages.where(removed_by_recipient: false).map { |m| m.sender }
+    recipients = sent_messages.where(removed_by_sender: false).map { |m| m.recipient }
+    people = senders + recipients
     people ? people.uniq : []
   end
 

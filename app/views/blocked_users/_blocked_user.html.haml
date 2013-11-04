@@ -1,10 +1,11 @@
 - blocked = blocked_user.blocked
+- user = blocked_user.user
 
 .well
   .row
     .col-sm-6
       - if current_user == blocked
-        = blocked.username
+        = user.username
       - else
         = link_to blocked.username, blocked
     - unless current_user == blocked

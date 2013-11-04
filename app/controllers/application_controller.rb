@@ -14,7 +14,7 @@ protected
   end
 
   def check_if_blocked
-    @user.blocked.include? current_user
+    redirect_to(root_path) if @user.blocked.include? current_user
   end
 
 end

@@ -8,11 +8,22 @@ class MessagesController < ApplicationController
   def create
     @message = current_user.sent_messages.build(message_params)
     @valid = @message.save
-    redirect_to @message
+    respond_to do |format|
+      format.html do
+        redirect_to @message
+      end
+      format.js do
+      end
+    end
   end
 
   def destroy
     redirect_to :back
+  end
+
+  def mass_destroy
+    Message.remove_user(current_user, params[:user_ids])
+    redirect_to messages_path
   end
 
   def index
@@ -21,13 +32,19 @@ class MessagesController < ApplicationController
 
   def show
     contact = if params[:contact_id]
-      params[:contact_id]
+      User.find(params[:contact_id])
     else
       message = Message.find(params[:id])
       message.sender == current_user ? message.recipient : message.sender
     end
-    set = [contact, current_user]
-    @messages = Message.where(sender_id: set, recipient_id: set).order('created_at ASC')
+    if current_user.contacts.include? contact
+      set = [contact, current_user]
+      @messages = Message.where(sender_id: set, recipient_id: set).order('created_at ASC')
+      @message = Message.new
+      @recipient = User.find(contact)
+    else
+      redirect_to messages_path
+    end
   end
 
 private
