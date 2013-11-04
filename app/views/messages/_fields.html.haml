@@ -1,0 +1,9 @@
+- if @recipient.nil?
+  = f.input :recipient_username
+- else
+  = f.hidden_field :recipient_id, value: @recipient.id
+
+= f.input :content, as: :text, input_html: { rows: 10 },
+  label: "Message to #{ @recipient.username unless @recipient.nil?}"
+
+= f.submit class: 'btn btn-primary'

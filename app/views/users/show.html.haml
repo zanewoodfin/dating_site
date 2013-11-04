@@ -22,3 +22,8 @@
 
     = render 'section', user: @user, section: 'sexual'
 
+.row
+  - unless current_user == @user
+    = link_to 'Send Message', new_message_path(recipient_id: @user.id), class: 'btn btn-primary'
+
+%br

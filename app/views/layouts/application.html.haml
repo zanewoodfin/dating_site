@@ -18,7 +18,7 @@
       #main.container
         - if content_for? :title
           %h1
-            = yield(:title)
+            = yield :title
             - if content_for? :headline
               %small= yield(:headline)
           %br

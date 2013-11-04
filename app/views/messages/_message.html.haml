@@ -1,0 +1,5 @@
+.panel.panel-default
+  .panel-heading
+    = link_to message.sender.username, message.sender
+  .panel-body
+    = simple_format message.content, sanitize: true

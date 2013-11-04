@@ -6,8 +6,11 @@ DatingSite::Application.routes.draw do
   # You can have the root of your site routed with "root"
   root to: 'static_pages#home'
 
-  #blocked_users
+  # blocked_users
   resources :blocked_users
+
+  # messages
+  resources :messages
 
   # users
   resources :users

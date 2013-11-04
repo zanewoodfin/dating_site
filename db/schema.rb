@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131103183702) do
+ActiveRecord::Schema.define(version: 20131103231350) do
 
   create_table "blocked_users", force: true do |t|
     t.integer  "user_id"
@@ -26,6 +26,14 @@ ActiveRecord::Schema.define(version: 20131103183702) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "headline"
+  end
+
+  create_table "messages", force: true do |t|
+    t.integer  "sender_id"
+    t.integer  "recipient_id"
+    t.text     "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "physical_infos", force: true do |t|

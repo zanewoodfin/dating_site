@@ -42,6 +42,12 @@ class User < ActiveRecord::Base
   has_many :blocking_users, class_name: 'BlockedUser',  foreign_key: :blocked_id, dependent: :destroy
   has_many :blocked_by, through: :blocking_users, source: :user
 
+  # messages
+  has_many :sent_messages, class_name: 'Message', foreign_key: :sender_id
+  has_many :recipients, through: :sent_messages
+  has_many :received_messages, class_name: 'Message', foreign_key: :recipient_id
+  has_many :senders, through: :received_messages
+
   # info
   has_one :physical_info, dependent: :destroy
   has_one :sexual_info, dependent: :destroy
@@ -50,6 +56,11 @@ class User < ActiveRecord::Base
 
   def unblocked
     User.where.not(id: blocked + blocked_by << id)
+  end
+
+  def contacts
+    people = self.try(:senders) + self.try(:recipients)
+    people ? people.uniq : []
   end
 
 end
