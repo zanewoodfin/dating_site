@@ -1,0 +1,16 @@
+// update badges in header
+<% links = header_links %>
+$('#<%= j links[:messages][:id] %>').html('<%= j raw(links[:messages][:text]) %>');
+
+// update conversation
+<% if @new_messages %>
+  conversation = document.getElementById('conversation');
+  scroll = conversation.scrollTop == conversation.scrollHeight - conversation.offsetHeight
+  <% @new_messages.each do |message| %>
+    $('.message').last().after(
+        '<%= j render(partial: 'messages/message', locals: { message: message }) %>'
+    );
+  <% end %>
+  <% @new_message = nil %>
+  if(scroll) conversation.scrollTop = conversation.scrollHeight;
+<% end %>

@@ -1,8 +1,11 @@
 - provide :title, "Conversation with #{@messages.first.other_person(current_user).username}"
 
-#conversation
+= content_tag :div, id: 'conversation', :'data-contact_id' => @messages.first.other_person(current_user).id do
   = render @messages
 
 = simple_form_for @message, remote: true do |f|
   = render 'fields', f: f
 
+:javascript
+  var div = document.getElementById('conversation');
+  div.scrollTop = div.scrollHeight;

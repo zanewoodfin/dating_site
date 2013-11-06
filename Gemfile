@@ -56,8 +56,8 @@ end
 
 group :production do
   gem 'rails_12factor'
+  gem 'unicorn'
 end
 
 # Use unicorn as the app server
-gem 'unicorn'
 ruby '2.0.0'

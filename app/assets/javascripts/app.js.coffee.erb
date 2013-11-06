@@ -1,19 +1,30 @@
 jQuery ->
   # polling
-  location = '<%= (Rails.env.production? ? '' : '/users/poll') %>'
-<%#
+  root = '<%= (Rails.env.production? ? 'http://zanes-dating-site.herokuapp.com/' : '/') %>'
+  controller = ''
+  data = {}
+  delay = 5000
   updatePage = ->
+    if $('#conversation').length > 0
+      controller = 'messages/'
+      delay = 5000
+      data['parent_action'] = 'show'
+      data['contact_id'] = $('#conversation').data('contact_id')
+    else
+      delay = 20000
+      data = {}
+      controller = ''
+    location = "#{root + controller}poll"
     $.ajax location,
+      data: data
       type: 'GET'
       dataType: 'script'
-      success: ->
-        setTimeout updatePage, 10000
-  setTimeout updatePage, 10000
+      window.setTimeout updatePage, delay
+  window.setTimeout updatePage, delay
 
   # remove flash messages on tab clicks
   $('ul.nav-tabs').children('li').children('a').click ->
     $("#flash_messages").html("")
-%>
 
   # smooth scroll to top with footer link
   $('#scroll_top').click ->

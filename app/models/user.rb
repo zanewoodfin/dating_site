@@ -65,4 +65,9 @@ class User < ActiveRecord::Base
     people ? people.uniq : []
   end
 
+  def unread_message_count
+    received_messages.where(read: false).count
+  end
+
 end
+

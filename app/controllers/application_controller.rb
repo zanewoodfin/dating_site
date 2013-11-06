@@ -1,4 +1,4 @@
-require 'pry'
+require 'pry' if Rails.env.development?
 
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
@@ -6,6 +6,13 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :configure_permitted_parameters, if: :devise_controller?
+
+  def poll
+    respond_to do |format|
+      format.js do
+      end
+    end
+  end
 
 protected
 
