@@ -43,6 +43,7 @@ module ApplicationHelper
     {
       messages: header_hash("Messages#{create_badge current_user.unread_message_count}", messages_path, 'messages'),
       members: header_hash('Members', users_path, 'members'),
+      likes: header_hash('Likes', likes_path, 'likes'),
       blocked: header_hash('Blocked', blocked_users_path, 'blocked'),
       my_profile: header_hash('My Profile', current_user, 'my_profile'),
       logout: header_hash('Logout', destroy_user_session_path, 'logout', :delete)

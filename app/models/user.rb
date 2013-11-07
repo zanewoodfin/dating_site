@@ -34,6 +34,14 @@ class User < ActiveRecord::Base
     length: 3..20,
     format: { with: WORD_CHARS }
 
+  # likes me
+  has_many :liked_by, class_name: 'Like', as: :likeable, dependent: :destroy
+  has_many :likes_me, through: :liked_by, source: :user
+
+  # I like
+  has_many :likes, dependent: :destroy
+  has_many :liked_users, through: :likes, source: :likeable, source_type: 'User'
+
   # blocked users
   has_many :blocked_users, dependent: :destroy
   has_many :blocked, through: :blocked_users

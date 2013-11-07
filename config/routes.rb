@@ -12,6 +12,9 @@ DatingSite::Application.routes.draw do
   # blocked_users
   resources :blocked_users
 
+  # likes
+  resources :likes
+
   # messages
   post 'messages/mass_destroy' => 'messages#mass_destroy'
   get 'messages/poll' => 'messages#poll'

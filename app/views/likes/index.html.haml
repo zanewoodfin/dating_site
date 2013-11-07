@@ -1,0 +1,20 @@
+- provide :title, 'Likes'
+
+%ul#likes.nav.nav-tabs
+  %li.active
+    %a{href: '#likes_me', :'data-toggle' => 'tab'} Likes me
+  %li
+    %a{href: '#liked_users', :'data-toggle' => 'tab'} I like
+
+.tab-content
+  #likes_me.tab-pane.active
+    - if @likes_me.blank?
+      %h4
+    - else
+      = render partial: 'users/user', collection: @likes_me, as: :user
+  #liked_users.tab-pane
+    - if @liked_users.blank?
+      %h4
+    - else
+      = render partial: 'users/user', collection: @liked_users, as: :user
+  %br
