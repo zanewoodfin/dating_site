@@ -88,11 +88,11 @@ private
   end
 
   def social_params
-    params.require(:social_info).permit(:religion, :smokes, :drinks, :drugs, :user_id)
+    params.require(:social_info).permit(:religion, :political_orientation, :diet , :drugs, :smokes, :drinks, :user_id)
   end
 
   def sexual_params
-    params.require(:sexual_info).permit(:sexual_experience, :user_id)
+    params.require(:sexual_info).permit(:gender, :perceived_gender, :romantic_orientation, :sexual_orientation, :sexual_experience, :user_id)
   end
 
   def essay_params

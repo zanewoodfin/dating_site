@@ -9,6 +9,6 @@
   - unless info.nil?
     %table.table
       %tbody
-        - info.display_attributes.each do |attribute|
+        - info.class.display_attributes.each do |attribute|
           %tr
             = raw populate_row(info, attribute) unless info.public_send(attribute) == 0

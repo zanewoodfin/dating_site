@@ -2,17 +2,22 @@
 #
 # Table name: social_infos
 #
-#  id         :integer          not null, primary key
-#  user_id    :integer
-#  religion   :integer          default(0)
-#  smokes     :integer          default(0)
-#  drinks     :integer          default(0)
-#  drugs      :integer          default(0)
-#  created_at :datetime
-#  updated_at :datetime
+#  id                    :integer          not null, primary key
+#  user_id               :integer
+#  religion              :integer          default(0)
+#  smokes                :integer          default(0)
+#  drinks                :integer          default(0)
+#  drugs                 :integer          default(0)
+#  created_at            :datetime
+#  updated_at            :datetime
+#  political_orientation :integer          default(0)
+#  diet                  :integer          default(0)
 #
 
 class SocialInfo < ActiveRecord::Base
+  DIET = [
+    '-'
+  ].freeze
   DRINKS = [
     '-',
     'Never',
@@ -27,6 +32,9 @@ class SocialInfo < ActiveRecord::Base
     'Socially',
     'Often',
     'Every day'].freeze
+  POLITICAL_ORIENTATION = [
+    '-'
+  ].freeze
   RELIGION = [
     '-',
     'Agnostic',
@@ -49,8 +57,8 @@ class SocialInfo < ActiveRecord::Base
 
   belongs_to :user
 
-  def display_attributes
-    [:religion, :drugs, :smokes, :drinks]
+  def self.display_attributes
+    [:religion, :political_orientation, :diet , :drugs, :smokes, :drinks]
   end
 
   def to_s(type = false)

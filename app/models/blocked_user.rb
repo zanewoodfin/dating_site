@@ -7,6 +7,7 @@
 #  blocked_id :integer
 #  created_at :datetime
 #  updated_at :datetime
+#  new        :boolean          default(TRUE)
 #
 
 class BlockedUser < ActiveRecord::Base
