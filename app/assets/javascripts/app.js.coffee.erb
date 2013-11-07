@@ -8,8 +8,14 @@ jQuery ->
     if $('#conversation').length > 0
       controller = 'messages/'
       delay = 5000
-      data['parent_action'] = 'show'
-      data['contact_id'] = $('#conversation').data('contact_id')
+      data {
+        parent_action: 'show'
+        contact_id: $('#conversation').data('contact_id')
+      }
+    else if $('#new_user').length > 0
+      delay = 60000
+      data = { offline: true }
+      controller = ''
     else
       delay = 20000
       data = {}

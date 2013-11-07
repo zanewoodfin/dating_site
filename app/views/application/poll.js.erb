@@ -1,8 +1,10 @@
 // update badges in header
-<% links = header_links %>
-$('#<%= j links[:messages][:id] %>').html('<%= j raw(links[:messages][:text]) %>');
-$('#<%= j links[:likes][:id] %>').html('<%= j raw(links[:likes][:text]) %>');
-$('#<%= j links[:blocked][:id] %>').html('<%= j raw(links[:blocked][:text]) %>');
+<% unless @offline %>
+  <% links = header_links %>
+  $('#<%= j links[:messages][:id] %>').html('<%= j raw(links[:messages][:text]) %>');
+  $('#<%= j links[:likes][:id] %>').html('<%= j raw(links[:likes][:text]) %>');
+  $('#<%= j links[:blocked][:id] %>').html('<%= j raw(links[:blocked][:text]) %>');
+<% end %>
 
 // update conversation
 <% if @new_messages %>
