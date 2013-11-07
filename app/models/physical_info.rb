@@ -70,7 +70,7 @@ class PhysicalInfo < ActiveRecord::Base
   after_find :set_feet_inches
   before_save :convert_to_height
 
-  def display_attributes
+  def self.display_attributes
     [:ethnicity, :body_type, :eye_color, :hair_color, :body_hair, :height, :weight]
   end
 

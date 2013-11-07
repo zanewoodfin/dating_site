@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131107001000) do
+ActiveRecord::Schema.define(version: 20131107055225) do
 
   create_table "blocked_users", force: true do |t|
     t.integer  "user_id"
@@ -64,19 +64,25 @@ ActiveRecord::Schema.define(version: 20131107001000) do
 
   create_table "sexual_infos", force: true do |t|
     t.integer  "user_id"
-    t.integer  "sexual_experience", default: 0
+    t.integer  "sexual_experience",    default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "gender",               default: 0
+    t.integer  "perceived_gender",     default: 0
+    t.integer  "romantic_orientation", default: 0
+    t.integer  "sexual_orientation",   default: 0
   end
 
   create_table "social_infos", force: true do |t|
     t.integer  "user_id"
-    t.integer  "religion",   default: 0
-    t.integer  "smokes",     default: 0
-    t.integer  "drinks",     default: 0
-    t.integer  "drugs",      default: 0
+    t.integer  "religion",              default: 0
+    t.integer  "smokes",                default: 0
+    t.integer  "drinks",                default: 0
+    t.integer  "drugs",                 default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "political_orientation", default: 0
+    t.integer  "diet",                  default: 0
   end
 
   create_table "users", force: true do |t|

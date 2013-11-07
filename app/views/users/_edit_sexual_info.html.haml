@@ -1,3 +1,4 @@
 = simple_form_for section_form, url: user_path(current_user), method: :patch do |f|
-  = f.input *build_select(:sexual_experience, SexualInfo)
+  - SexualInfo.display_attributes.each do |attribute|
+    = f.input *build_select(attribute, SexualInfo)
   = f.submit class: 'btn btn-primary'
