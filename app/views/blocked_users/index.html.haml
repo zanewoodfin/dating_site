@@ -2,19 +2,19 @@
 
 %ul#blocked_users.nav.nav-tabs
   %li.active
-    %a{href: '#blocking', :'data-toggle' => 'tab'} Blocking
-  %li
     %a{href: '#blocked_by', :'data-toggle' => 'tab'} Blocked By
+  %li
+    %a{href: '#blocking', :'data-toggle' => 'tab'} Blocking
 
 .tab-content
-  #blocking.tab-pane.active
-    - if @blocked.blank?
-      %h4 Stalkers are people too, people looking for any chance to make a suit out of you. Feel free to stow them in here.
-    - else
-      = render @blocked
-  #blocked_by.tab-pane
+  #blocked_by.tab-pane.active
     - if @blocked_by.blank?
       %h4 Congratulations, nobody arbitrarily hates you...yet. When they do, try to keep in mind that it's not actually you they hate; it's the thought of your existence intermingling with theirs.
     - else
       = render @blocked_by
+  #blocking.tab-pane
+    - if @blocked.blank?
+      %h4 Stalkers are people too, people looking for any chance to make a suit out of you. Feel free to stow them in here.
+    - else
+      = render @blocked
   %br

@@ -77,5 +77,13 @@ class User < ActiveRecord::Base
     received_messages.where(read: false).count
   end
 
+  def new_blockers_count
+    blocking_users.where(new: true).count
+  end
+
+  def new_likers_count
+    liked_by.where(new: true).count
+  end
+
 end
 

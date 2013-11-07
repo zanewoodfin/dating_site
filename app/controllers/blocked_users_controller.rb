@@ -3,6 +3,7 @@ class BlockedUsersController < ApplicationController
   def index
     @blocked = current_user.blocked_users
     @blocked_by = current_user.blocking_users
+    current_user.blocking_users.update_all(new: false)
   end
 
   def create
