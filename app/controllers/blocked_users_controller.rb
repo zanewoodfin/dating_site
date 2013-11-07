@@ -9,6 +9,9 @@ class BlockedUsersController < ApplicationController
   def create
     @blocked_user = current_user.blocked_users.build(blocked_id: params[:blocked_id])
     @valid = @blocked_user.save
+    if @valid
+      current_user.liked_by.where(user_id: params[:blocked_id]).destroy_all
+    end
     redirect_to users_path
   end
 
