@@ -25,13 +25,7 @@
 .row
   - unless current_user == @user
     = link_to 'Send Message', new_message_path(recipient_id: @user.id), class: 'btn btn-primary'
-    - if current_user.liked_users.include? @user
-      = link_to like_path(@user.id, type: 'User'), method: :delete, class: 'btn btn-danger' do
-        Unlike
-        %span.glyphicon.glyphicon-thumbs-down
-    - else
-      = link_to new_like_path(id: @user.id, type: 'User'), class: 'btn btn-success' do
-        Like
-        %span.glyphicon.glyphicon-thumbs-up
+    %span#like_unlike
+      = render 'like_unlike', user: @user
 
 %br

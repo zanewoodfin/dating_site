@@ -30,21 +30,17 @@ class MessagesController < ApplicationController
     @contacts = current_user.contacts
   end
 
-  def poll
-    respond_to do |format|
-      format.js do
-        case params[:parent_action]
-        when 'show'
-          new_messages = current_user.received_messages.where(
-            sender_id: params[:contact_id], read: false
-          )
-          @new_messages = new_messages.order('created_at ASC').all
-          new_messages.update_all(read: true)
-        else
-        end
-        render 'application/poll'
-      end
+  def poll # format.js
+    case params[:parent_action]
+    when 'show'
+      new_messages = current_user.received_messages.where(
+        sender_id: params[:contact_id], read: false
+      )
+      @new_messages = new_messages.order('created_at ASC').all
+      new_messages.update_all(read: true)
+    else
     end
+    render 'application/poll'
   end
 
   def show

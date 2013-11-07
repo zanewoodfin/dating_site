@@ -1,0 +1,9 @@
+- if current_user.liked_users.include? user
+  = link_to like_path(user, type: 'User'), method: :delete, remote: true, class: 'btn btn-danger' do
+    Unlike
+    %span.glyphicon.glyphicon-thumbs-down
+- else
+  = link_to likes_path(user, type: 'User'), method: :post, remote: true, class: 'btn btn-success' do
+    Like
+    %span.glyphicon.glyphicon-thumbs-up
+

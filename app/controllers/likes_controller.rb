@@ -1,8 +1,9 @@
 class LikesController < ApplicationController
-  def destroy
+  def destroy # format.js
     @likeable = current_user.likes.where(likeable_id: params[:id], likeable_type: params[:type])
+    @likeable_object = params[:type].constantize.find(params[:id])
     @likeable.destroy_all
-    redirect_to :back
+    render 'users/create_destroy'
   end
 
   def index
@@ -11,10 +12,11 @@ class LikesController < ApplicationController
     current_user.liked_by.update_all(new: false)
   end
 
-  def new
-    @likeable = current_user.likes.build(likeable_id: params[:id], likeable_type: params[:type])
+  def create # format.js
+    @likeable = current_user.likes.build(likeable_id: params[:format], likeable_type: params[:type])
+    @likeable_object = params[:type].constantize.find(params[:format])
     @likeable.save
-    redirect_to :back
+    render 'users/create_destroy'
   end
 
 end

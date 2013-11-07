@@ -7,11 +7,7 @@ class ApplicationController < ActionController::Base
 
   before_action :configure_permitted_parameters, if: :devise_controller?
 
-  def poll
-    respond_to do |format|
-      format.js do
-      end
-    end
+  def poll # format.js
   end
 
 protected
