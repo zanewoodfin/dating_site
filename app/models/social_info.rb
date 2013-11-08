@@ -33,7 +33,12 @@ class SocialInfo < ActiveRecord::Base
     'Often',
     'Every day'].freeze
   POLITICAL_ORIENTATION = [
-    '-'
+    '-',
+    'Socialist',
+    'Liberal',
+    'Moderate',
+    'Republican',
+    'Libertarian'
   ].freeze
   RELIGION = [
     '-',

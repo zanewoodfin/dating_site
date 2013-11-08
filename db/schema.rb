@@ -64,13 +64,13 @@ ActiveRecord::Schema.define(version: 20131107055225) do
 
   create_table "sexual_infos", force: true do |t|
     t.integer  "user_id"
-    t.integer  "sexual_experience",    default: 0
+    t.integer  "sexual_experience",  default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "gender",               default: 0
-    t.integer  "perceived_gender",     default: 0
-    t.integer  "romantic_orientation", default: 0
-    t.integer  "sexual_orientation",   default: 0
+    t.integer  "gender",             default: 0
+    t.integer  "perceived_gender",   default: 0
+    t.integer  "interested_in",      default: 0
+    t.integer  "sexual_orientation", default: 0
   end
 
   create_table "social_infos", force: true do |t|

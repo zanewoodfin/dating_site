@@ -41,8 +41,8 @@ module ApplicationHelper
 
   def header_links
     {
+      browse: header_hash("Browse", users_path, 'browse'),
       messages: header_hash("Messages#{create_badge current_user.unread_message_count}", messages_path, 'messages'),
-      members: header_hash("Members", users_path, 'members'),
       likes: header_hash("Likes#{create_badge current_user.new_likers_count}", likes_path, 'likes'),
       blocked: header_hash("Blocked#{create_badge current_user.new_blockers_count}", blocked_users_path, 'blocked'),
       my_profile: header_hash('My Profile', current_user, 'my_profile'),

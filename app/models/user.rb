@@ -62,7 +62,7 @@ class User < ActiveRecord::Base
   has_one :social_info, dependent: :destroy
   has_one :essay_info, dependent: :destroy
 
-  def unblocked
+  def pool
     User.where.not(id: blocked + blocked_by << id)
   end
 

@@ -58,7 +58,7 @@ class SexualInfo < ActiveRecord::Base
   belongs_to :user
 
   def self.display_attributes
-    [:gender, :perceived_gender, :romantic_orientation, :sexual_orientation, :sexual_experience]
+    [:gender, :perceived_gender, :sexual_orientation, :sexual_experience]
   end
 
   def to_s(type = false)

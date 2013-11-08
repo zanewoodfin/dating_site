@@ -23,7 +23,7 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users = current_user.unblocked
+    @users = current_user.pool
   end
 
   def show
