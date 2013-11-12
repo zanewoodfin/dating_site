@@ -1,0 +1,22 @@
+.col-sm-6.col-md-4
+  = link_to user_pic_path(thumbnail, user_id: thumbnail.user_id) do
+    .thumbnail{id: "pic_#{thumbnail.id}"}
+      = image_tag thumbnail.image_url(:thumb), :'data-src' => 'holder.js/300x200', alt: 'loading?'
+      .caption
+        %p= thumbnail.caption.presence || ''
+  - if current_user == thumbnail.user
+    .pull-right
+      = link_to 'Edit', "#edit_pic_modal_#{thumbnail.id}", :'data-toggle' => 'modal'
+      = link_to 'Delete', user_pic_path(thumbnail.id, user_id: thumbnail.user_id), method: :delete
+
+- if current_user == thumbnail.user
+  .modal.fade{id: "edit_pic_modal_#{thumbnail.id}", role: 'dialog', aria: {hidden: true}}
+    .modal-dialog
+      .modal-content
+        .modal-header
+          %button.close{:'data-dismiss' => "modal", :'aria-hidden' => true} &times;
+          %h4.modal-title Edit Pic
+        .modal-body
+          = simple_form_for thumbnail, url: user_pic_path(thumbnail.id, user_id: thumbnail.user_id), action: :patch, remote: true do |f|
+            = f.input :caption
+            = f.submit 'Update Pic', class: 'btn btn-primary'

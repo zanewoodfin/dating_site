@@ -28,6 +28,8 @@ class UsersController < ApplicationController
 
   def show
     check_if_blocked
+    @user_pic = @user.pics.first
+    @pic = Pic.new
   end
 
   def update

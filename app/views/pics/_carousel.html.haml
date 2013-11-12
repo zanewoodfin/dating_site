@@ -7,15 +7,7 @@
 
   / Wrapper for slides
   .carousel-inner
-    .item.active
-      = image_tag 'deviant_butter.jpg', alt: 'deviant butter'
-      .carousel-caption deviant butter
-    .item
-      = image_tag 'hondas.jpg', alt: 'hondas'
-      .carousel-caption hondas
-    .item
-      = image_tag 'old_school.jpg', alt: 'old school'
-      .carousel-caption old school
+    = render partial: 'pics/carousel_pic', collection: pics, as: :pic
 
   / Controls
   %a.left.carousel-control{href: "#image_carousel", :'data-slide' => "prev"}

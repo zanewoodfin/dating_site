@@ -9,6 +9,10 @@ DatingSite::Application.routes.draw do
   # blocked_users
   resources :blocked_users
 
+  # images
+  get 'images_new' => 'image#new'
+  post 'images' => 'images#create'
+
   # likes
   get 'likes' => 'likes#index'
   post 'likes(.:format)' => 'likes#create', defaults: { format: 'js' }
@@ -20,6 +24,9 @@ DatingSite::Application.routes.draw do
   resources :messages
 
   # users
-  resources :users
+  resources :users do
+    # pics
+    resources :pics
+  end
 
 end

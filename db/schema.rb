@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131107055225) do
+ActiveRecord::Schema.define(version: 20131111150646) do
 
   create_table "blocked_users", force: true do |t|
     t.integer  "user_id"
@@ -58,6 +58,14 @@ ActiveRecord::Schema.define(version: 20131107055225) do
     t.integer  "eye_color",  default: 0
     t.integer  "hair_color", default: 0
     t.integer  "body_hair",  default: 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "pics", force: true do |t|
+    t.string   "image"
+    t.string   "caption"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

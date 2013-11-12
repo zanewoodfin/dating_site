@@ -1,0 +1,4 @@
+$('#edit_pic_modal_<%= @pic.id %>').modal('hide');
+<% if @valid %>
+  $('#pic_<%= @pic.id %>').find('p').html('<%= j @pic.caption %>');
+<% end %>

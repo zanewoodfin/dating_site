@@ -2,15 +2,15 @@
 #
 # Table name: sexual_infos
 #
-#  id                   :integer          not null, primary key
-#  user_id              :integer
-#  sexual_experience    :integer          default(0)
-#  created_at           :datetime
-#  updated_at           :datetime
-#  gender               :integer          default(0)
-#  perceived_gender     :integer          default(0)
-#  romantic_orientation :integer          default(0)
-#  sexual_orientation   :integer          default(0)
+#  id                 :integer          not null, primary key
+#  user_id            :integer
+#  sexual_experience  :integer          default(0)
+#  created_at         :datetime
+#  updated_at         :datetime
+#  gender             :integer          default(0)
+#  perceived_gender   :integer          default(0)
+#  interested_in      :integer          default(0)
+#  sexual_orientation :integer          default(0)
 #
 
 class SexualInfo < ActiveRecord::Base

@@ -1,9 +1,14 @@
 - provide :title, @user.username
+
 - provide(:headline, @user.essay_info.headline) unless @user.essay_info.nil? || @user.essay_info.headline.blank?
 
 .row
   .col-sm-8
-    = render 'image_carousel'
+    .row
+      .col-sm-8.col-sm-offset-2
+        - unless @user_pic.blank?
+          = link_to user_pics_path(user_id: @user.id) do
+            = image_tag @user_pic.image_url, class: 'img-responsive'
 
     %br
 

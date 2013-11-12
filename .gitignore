@@ -15,6 +15,9 @@
 /log/*.log
 /tmp
 
+# Ignore uploaded files
+/public/uploads
+
 # Vim temp files
 *.swp
 *.swo

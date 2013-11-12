@@ -1,0 +1,4 @@
+.item.active
+  = image_tag pic.image_url
+  - unless pic.caption.blank?
+    .carousel-caption = pic.caption

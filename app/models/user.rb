@@ -56,6 +56,9 @@ class User < ActiveRecord::Base
   has_many :received_messages, class_name: 'Message', foreign_key: :recipient_id
   has_many :senders, through: :received_messages
 
+  # pics
+  has_many :pics
+
   # info
   has_one :physical_info, dependent: :destroy
   has_one :sexual_info, dependent: :destroy

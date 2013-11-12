@@ -40,6 +40,17 @@ gem 'will_paginate'
 gem 'bootstrap-will_paginate', git: 'git://github.com/yrgoldteeth/bootstrap-will_paginate.git'
 gem 'bootstrap-sass', github: 'thomas-mcdonald/bootstrap-sass'
 
+# images upload/resize
+gem 'carrierwave'
+gem 'rmagick'
+gem 'fog'
+gem 'unf'
+gem 'carrierwave_direct'
+gem 'sidekiq'
+
+# amazon storage
+gem 'aws-sdk'
+
 gem 'annotate'
 
 group :develop do
