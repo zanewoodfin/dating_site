@@ -1,9 +1,16 @@
 .panel.panel-default
   .panel-heading
-    %h3.panel-title= user.username
+    %h3.panel-title
+      = content_tag :span, (user.try(:essay_info).try(:headline) || ""), class: 'pull-left'
+      = content_tag :span, user.last_activity, class: 'pull-right'
+    .clearfix
   .panel-body
     .row
       .col-sm-6.col-md-3
-        .thumbnail
-          = image_tag user.default_pic(:thumb)
+        = link_to user do
+          .thumbnail
+            = image_tag user.default_pic(:thumb)
       .col-sm-6.col-md-9
+        = link_to user.username, user
+        %br
+        = simple_format user.try(:essay_info).try(:about_me).try(:slice, 0..200), santize: true

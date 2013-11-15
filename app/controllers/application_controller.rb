@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :configure_permitted_parameters, if: :devise_controller?
+  after_action :update_last_activity, except: [:poll]
 
   def poll # format.js
     @offline = params[:offline]
@@ -19,6 +20,10 @@ protected
 
   def check_if_blocked
     redirect_to(root_path) if @user.blocked.include? current_user
+  end
+
+  def update_last_activity
+    current_user.try :touch
   end
 
 end
