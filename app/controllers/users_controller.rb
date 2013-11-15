@@ -23,12 +23,12 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users = current_user.pool
+    @users = current_user.pool.paginate(params[:page])
   end
 
   def show
     check_if_blocked
-    @user_pic = @user.pics.first
+    @user_pic = @user.default_pic
     @pic = Pic.new
   end
 

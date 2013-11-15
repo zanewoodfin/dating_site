@@ -41,6 +41,7 @@ module ApplicationHelper
 
   def header_links
     {
+      home: header_hash("Home", root_path, 'home'),
       browse: header_hash("Browse", users_path, 'browse'),
       messages: header_hash("Messages#{create_badge current_user.unread_message_count}", messages_path, 'messages'),
       likes: header_hash("Likes#{create_badge current_user.new_likers_count}", likes_path, 'likes'),

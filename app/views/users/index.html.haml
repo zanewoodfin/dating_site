@@ -1,2 +1,6 @@
-= provide :title, 'Members'
+- provide :title, 'Members'
+
 = render @users
+
+.pull-right
+  = will_paginate @users

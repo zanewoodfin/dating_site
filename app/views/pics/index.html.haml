@@ -5,4 +5,4 @@
     = simple_form_for @pic, url: user_pics_path(user_id: current_user), html: { multipart: true } do |f|
       = render 'fields', f: f
 .row
-= render 'index', thumbnails: @thumbnails
+  = render 'index', thumbnails: @thumbnails

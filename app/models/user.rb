@@ -69,6 +69,12 @@ class User < ActiveRecord::Base
     User.where.not(id: blocked + blocked_by << id)
   end
 
+  def default_pic(type = false)
+    args = [:image_url]
+    args << type if type
+    pics.first.try(*args) || 'default_person.jpeg'
+  end
+
   def contacts
     senders = received_messages.where(removed_by_recipient: false).map { |m| m.sender }
     recipients = sent_messages.where(removed_by_sender: false).map { |m| m.recipient }

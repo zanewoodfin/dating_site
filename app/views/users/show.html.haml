@@ -6,9 +6,8 @@
   .col-sm-8
     .row
       .col-sm-8.col-sm-offset-2
-        - unless @user_pic.blank?
-          = link_to user_pics_path(user_id: @user.id) do
-            = image_tag @user_pic.image_url, class: 'img-responsive'
+        = link_to user_pics_path(user_id: @user.id) do
+          = image_tag @user_pic, class: 'img-responsive'
 
     %br
 
@@ -27,10 +26,11 @@
 
     = render 'section', user: @user, section: 'sexual'
 
-.row
-  - unless current_user == @user
-    = link_to 'Send Message', new_message_path(recipient_id: @user.id), class: 'btn btn-primary'
+- unless current_user == @user
+  .pull-left
+    = link_to 'Send Message', new_message_path(recipient_id: @user), class: 'btn btn-primary'
     %span#like_unlike
       = render 'like_unlike', user: @user
+  .pull-right
+    = link_to "Block" , blocked_users_path(blocked_id: @user), method: :post, class: 'btn btn-danger'
 
-%br

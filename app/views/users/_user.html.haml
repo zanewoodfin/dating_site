@@ -1,6 +1,9 @@
 .panel.panel-default
+  .panel-heading
+    %h3.panel-title= user.username
   .panel-body
-    .col-sm-6
-      = link_to user.username, user
-    .col-sm-6
-      = link_to "Block" , blocked_users_path(blocked_id: user), method: :post
+    .row
+      .col-sm-6.col-md-3
+        .thumbnail
+          = image_tag user.default_pic(:thumb)
+      .col-sm-6.col-md-9
