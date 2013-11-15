@@ -4,7 +4,8 @@ class PicsController < ApplicationController
 
   def create
     @pic = current_user.pics.build(pic_params)
-    @pic.save
+    @valid = @pic.save
+    flash[:error] = @pic.errors.full_messages.first
     redirect_to :back
   end
 

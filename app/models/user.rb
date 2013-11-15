@@ -65,6 +65,9 @@ class User < ActiveRecord::Base
   has_one :social_info, dependent: :destroy
   has_one :essay_info, dependent: :destroy
 
+  before_destroy :remember_id
+  after_destroy :remove_pics_and_directories
+
   def pool
     User.where.not(id: blocked + blocked_by << id)
   end
@@ -112,6 +115,15 @@ private
 
   def pluralize(number, word)
     "#{ number.to_s } #{ word }" + ((number > 1) ? "s" : "")
+  end
+
+  def remember_id
+    @id
+  end
+
+  def remove_pics_and_directories
+    pics.where(user_id: @id).destroy
+    FileUtils.remove_dir("#{Rails.root}/public/uploads/pic/#{@id}")
   end
 
 end

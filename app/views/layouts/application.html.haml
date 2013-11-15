@@ -16,19 +16,17 @@
 
       / body
       #main.container
-        - if content_for? :title
-          %h1
-            = yield :title
-            - if content_for? :headline
-              %small= yield(:headline)
-          %br
         .row
-          - if content_for? :sidebar
-            .col-md-3.hidden-xs.visible-md= yield :sidebar
-            .col-xs-12.col-md-9= yield
-          - else
-            .col-xs-12= yield
-        %br
+          .col-xs-12
+            - if content_for? :title
+              %h1
+                = yield :title
+                - if content_for? :headline
+                  %small= yield(:headline)
+            %br
+            = render 'layouts/flash'
+            = yield
+            %br
 
     / footer
     = render 'layouts/footer'
