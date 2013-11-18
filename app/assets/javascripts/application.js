@@ -14,5 +14,6 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap
+//= require tinymce-jquery
 //= browser_timezone_rails/application.js
 //= require_tree .

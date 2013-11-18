@@ -16,11 +16,11 @@
 class SexualInfo < ActiveRecord::Base
   SEXUAL_EXPERIENCE = [
     '-',
-    'Virgin',
-    '1-5 Partners',
-    '6-10 Partners',
-    '11-20 Partners',
-    '21+ Partners'].freeze
+    'None',
+    'Some',
+    'Moderate',
+    'A Lot'
+  ].freeze
   GENDER = [
     '-',
     'Female',

@@ -98,7 +98,7 @@ private
   end
 
   def essay_params
-    params.require(:essay_info).permit(:headline, :about_me)
+    params.require(:essay_info).permit(:headline, :about_me, :looking_for)
   end
 
 end

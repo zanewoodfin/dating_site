@@ -16,8 +16,16 @@
       = link_to "Edit", edit_user_path(current_user, section: 'essay')
     .panel.panel-default
       .panel-body
-        - unless @user.essay_info.nil? || @user.essay_info.about_me.nil?
-          = simple_format @user.essay_info.about_me, sanitize: true
+        - unless @user.essay_info.nil? || @user.essay_info.about_me.blank?
+          = raw @user.essay_info.about_me
+    %h3 Looking for
+    - if @user == current_user
+      = link_to "Edit", edit_user_path(current_user, section: 'essay')
+    .panel.panel-default
+      .panel-body
+        - unless @user.essay_info.nil? || @user.essay_info.looking_for.blank?
+          = raw @user.essay_info.looking_for
+
 
   .col-sm-4
     = render 'section', user: @user, section: 'physical'

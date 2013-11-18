@@ -22,6 +22,9 @@
 *.swp
 *.swo
 
+# Ignore uploads
+/public/uploads
+
 # Backup files
 *~
 

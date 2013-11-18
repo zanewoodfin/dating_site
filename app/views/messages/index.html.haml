@@ -6,6 +6,6 @@
         %th{style: 'width: 85%;'} Message
         %th Delete
     %tbody
-    = render 'conversation', contacts: @contacts
+    = render partial: 'conversation_header', collection: @contacts, as: :contact
 
   = submit_tag 'Delete selected', class: 'btn btn-primary pull-right'

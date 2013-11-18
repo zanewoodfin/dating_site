@@ -34,7 +34,11 @@ gem 'jbuilder', '~> 1.2'
 gem 'devise'
 gem 'simple_form'
 
+# get user's timezone via javascript
 gem 'browser-timezone-rails'
+
+# allow for word style editing of text areas
+gem 'tinymce-rails'
 
 gem 'will_paginate'
 gem 'bootstrap-will_paginate', git: 'git://github.com/yrgoldteeth/bootstrap-will_paginate.git'
