@@ -3,14 +3,14 @@ jQuery ->
   root = '<%= (Rails.env.production? ? 'http://zanes-dating-site.herokuapp.com/' : '/') %>'
   controller = ''
   data = {}
-  delay = 5000
+  delay = 3000
   updatePage = ->
-    if $('#conversation').length > 0
+    if $('div#conversation').length > 0
       controller = 'messages/'
-      delay = 5000
-      data {
+      delay = 3000
+      data = {
         parent_action: 'show'
-        contact_id: $('#conversation').data('contact_id')
+        contact_id: $('div#conversation').data('contact_id')
       }
     else if $('#new_user').length > 0
       delay = 60000
@@ -25,8 +25,8 @@ jQuery ->
       data: data
       type: 'GET'
       dataType: 'script'
-      window.setTimeout updatePage, delay
-  window.setTimeout updatePage, delay
+    setTimeout updatePage, delay
+  setTimeout updatePage, delay
 
   # remove flash messages on tab clicks
   $('ul.nav-tabs').children('li').children('a').click ->
