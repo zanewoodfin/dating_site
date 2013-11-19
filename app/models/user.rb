@@ -18,6 +18,8 @@
 #  username               :string(255)
 #
 
+include ApplicationHelper
+
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -90,17 +92,21 @@ class User < ActiveRecord::Base
   end
 
   def last_activity
-    current_time = DateTime.now
-    "last activity: " +
-      if updated_at > current_time - 1.minute
-        "now"
-      elsif updated_at > current_time - 1.hour
-        pluralize(((current_time.to_i - updated_at.to_i) / 60), 'minute') + " ago"
-      elsif updated_at > current_time - 1.day
-        pluralize(((current_time.to_i - updated_at.to_i) / 3600), 'hour') + " ago"
-      else
-        pluralize(((current_time.to_i - updated_at.to_i) / 86400), 'day') + " ago"
-      end
+    "last activity: " + time_since(updated_at)
+  end
+
+  def conversation_headers
+    contacts.map do |contact|
+      {
+        contact: contact,
+        last_message: conversation(contact).last
+      }
+    end
+  end
+
+  def conversation(contact)
+    set = [contact, self]
+    messages = Message.where(sender_id: set, recipient_id: set).order('created_at ASC')
   end
 
   def new_blockers_count

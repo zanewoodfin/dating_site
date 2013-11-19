@@ -60,6 +60,19 @@ module ApplicationHelper
     formatted_time.gsub(/0(\d:\d\d)/) { $1 }
   end
 
+  def time_since(time)
+    current_time = DateTime.now
+    if time > current_time - 1.minute
+      "now"
+    elsif time > current_time - 1.hour
+      pluralize(((current_time.to_i - time.to_i) / 60), 'minute') + " ago"
+    elsif time > current_time - 1.day
+      pluralize(((current_time.to_i - time.to_i) / 3600), 'hour') + " ago"
+    else
+      pluralize(((current_time.to_i - time.to_i) / 86400), 'day') + " ago"
+    end
+  end
+
   def build_select(type, clazz)
     set = clazz.const_get(type.upcase)
     [type,

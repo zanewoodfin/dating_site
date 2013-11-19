@@ -6,11 +6,11 @@
     .clearfix
   .panel-body
     .row
-      .col-sm-6.col-md-3
+      .col-sm-5.col-md-3
         = link_to user do
           .thumbnail
             = image_tag user.default_pic(:thumb)
-      .col-sm-6.col-md-9
+      .col-sm-7.col-md-9
         = link_to user.username, user
         %br
-        = simple_format user.try(:essay_info).try(:about_me).try(:slice, 0..200), santize: true
+        .user-summary= raw user.try(:essay_info).try(:about_me)

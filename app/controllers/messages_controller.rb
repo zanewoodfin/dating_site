@@ -27,7 +27,7 @@ class MessagesController < ApplicationController
   end
 
   def index
-    @contacts = current_user.contacts
+    @conversation_headers = current_user.conversation_headers.paginate(page: params[:page])
   end
 
   def poll # format.js
@@ -51,8 +51,7 @@ class MessagesController < ApplicationController
       message.sender == current_user ? message.recipient : message.sender
     end
     if current_user.contacts.include? contact
-      set = [contact, current_user]
-      @messages = Message.where(sender_id: set, recipient_id: set).order('created_at ASC')
+      @messages = current_user.conversation(contact)
       Message.where(sender_id: contact, recipient_id: current_user).update_all(read: true)
       @message = Message.new
       @recipient = User.find(contact)
