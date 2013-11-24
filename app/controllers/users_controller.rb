@@ -23,7 +23,7 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users = current_user.pool.paginate(page: params[:page])
+    @users = current_user.pool.includes(:essay_info).paginate(page: params[:page])
   end
 
   def show

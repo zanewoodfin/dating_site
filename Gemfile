@@ -3,6 +3,8 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.0'
 
+gem 'rb-readline'
+
 gem 'haml'
 gem 'haml-rails'
 
@@ -57,8 +59,26 @@ gem 'aws-sdk'
 
 gem 'annotate'
 
-group :develop do
+group :development do
   gem 'pry-rails'
+  gem 'quiet_assets'
+  gem 'bullet', git: 'git@github.com:flyerhzm/bullet.git'
+  gem 'airbrake'
+end
+
+group :test do
+  gem 'rspec'
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
+  gem 'cucumber'
+  gem 'cucumber-rails', require: false
+  gem 'database_cleaner'
+  gem 'multi_test'
+  gem 'capybara'
+end
+
+group :development, :test do
+  gem 'railroady'
 end
 
 group :doc do

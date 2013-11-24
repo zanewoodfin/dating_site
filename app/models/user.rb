@@ -81,8 +81,8 @@ class User < ActiveRecord::Base
   end
 
   def contacts
-    senders = received_messages.where(removed_by_recipient: false).map { |m| m.sender }
-    recipients = sent_messages.where(removed_by_sender: false).map { |m| m.recipient }
+    senders = received_messages.includes(:sender).where(removed_by_recipient: false).map { |m| m.sender }
+    recipients = sent_messages.includes(:recipient).where(removed_by_sender: false).map { |m| m.recipient }
     people = senders + recipients
     people ? people.uniq : []
   end
@@ -106,7 +106,7 @@ class User < ActiveRecord::Base
 
   def conversation(contact)
     set = [contact, self]
-    messages = Message.where(sender_id: set, recipient_id: set).order('created_at ASC')
+    messages = Message.includes(:sender, :recipient).where(sender_id: set, recipient_id: set).order('created_at ASC')
   end
 
   def new_blockers_count
