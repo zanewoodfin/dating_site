@@ -88,7 +88,7 @@ class User < ActiveRecord::Base
   end
 
   def unread_message_count
-    received_messages.where(read: false).count
+    received_messages.where(read: false, removed_by_recipient: false).count
   end
 
   def last_activity
@@ -99,14 +99,14 @@ class User < ActiveRecord::Base
     contacts.map do |contact|
       {
         contact: contact,
-        last_message: conversation(contact).last
+        last_message: conversation(contact, :sender).last
       }
     end
   end
 
-  def conversation(contact)
+  def conversation(contact, included = [:sender, :recipient])
     set = [contact, self]
-    messages = Message.includes(:sender, :recipient).where(sender_id: set, recipient_id: set).order('created_at ASC')
+    messages = Message.includes(included).where(sender_id: set, recipient_id: set).order('created_at ASC')
   end
 
   def new_blockers_count

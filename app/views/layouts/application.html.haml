@@ -24,7 +24,8 @@
                 - if content_for? :headline
                   %small= yield(:headline)
             %br
-            = render 'layouts/flash'
+            #flash_messages
+              = render 'layouts/flash'
             = yield
             .clearfix
             %br

@@ -2,4 +2,7 @@
   $('#conversation').append('<%= j render(partial: 'message', locals: { message: @message }) %>');
   $('#message_content').val('');
   conversation.scrollTop = conversation.scrollHeight;
+<% else %>
+  $('#flash_messages').html('<%= j render(partial: 'layouts/flash') %>');
+  $('html, body').stop().animate({scrollTop: 0}, 'fast');
 <% end %>

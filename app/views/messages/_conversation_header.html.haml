@@ -8,7 +8,7 @@
         %h3.panel-title
           .pull-left
             Sender:
-            = last_message.sender == current_user ? "You" : link_to(contact.username, user_path(contact))
+            = link_to (last_message.sender == current_user ? "You" : contact.username), last_message.sender
           .pull-right
             Last message:
             = time_since(last_message.created_at)
@@ -18,7 +18,7 @@
           .col-sm-5.col-md-3
             = link_to contact do
               = contact.username
-              = image_tag contact.default_pic(:thumb)
+              = image_tag contact.default_pic(:thumb), class: 'img-responsive'
           .col-sm-7.col-md-9
             = link_to message_path(0, contact_id: contact) do
               %div= last_message.content

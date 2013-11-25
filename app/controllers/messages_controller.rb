@@ -10,9 +10,11 @@ class MessagesController < ApplicationController
     @valid = @message.save
     respond_to do |format|
       format.html do
-        redirect_to @message
+        flash[:error] = @message.errors.full_messages[0] unless @valid
+        redirect_to :back
       end
       format.js do
+        flash.now[:error] = @message.errors.full_messages[0] unless @valid
       end
     end
   end
