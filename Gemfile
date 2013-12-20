@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.0'
-gem 'rb-readline', '~> 0.4.2'
+gem 'rb-readline', require: false
 gem 'haml'
 gem 'haml-rails'
 # postgres database
@@ -34,6 +34,8 @@ gem 'will_paginate'
 # bootstrap
 gem 'bootstrap-will_paginate', git: 'git://github.com/yrgoldteeth/bootstrap-will_paginate.git'
 gem 'bootstrap-sass', github: 'thomas-mcdonald/bootstrap-sass'
+
+gem 'newrelic_rpm'
 
 # images upload/resize
 gem 'carrierwave'

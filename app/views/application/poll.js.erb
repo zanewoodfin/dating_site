@@ -6,6 +6,10 @@
   $('#<%= j links[:blocked][:id] %>').html('<%= j raw(links[:blocked][:text]) %>');
 <% end %>
 
+// update flash messages
+<% if @new_flash %>
+<% end %>
+
 // update conversation
 <% if @new_messages %>
   conversation = document.getElementById('conversation');

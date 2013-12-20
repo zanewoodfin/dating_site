@@ -35,5 +35,10 @@ module DatingSite
     config.serve_static_assets = true
 
     WillPaginate.per_page = 10
+    begin
+      require 'pry'
+      IRB = Pry
+    rescue LoadError
+    end
   end
 end

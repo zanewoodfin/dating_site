@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 20131118000023) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "headline"
-    t.text     "looking_for"
+    t.text     "looking_for", default: ""
   end
 
   create_table "likes", force: true do |t|
