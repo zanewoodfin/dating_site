@@ -14,46 +14,46 @@
 #
 
 class SexualInfo < ActiveRecord::Base
-  SEXUAL_EXPERIENCE = [
-    '-',
-    'None',
-    'Some',
-    'Moderate',
-    'A Lot'
-  ].freeze
-  GENDER = [
-    '-',
-    'Female',
-    'Male',
-    'Hormone Therapy (F->M)',
-    'Hormone Therapy (M->F)',
-    'Reassigned(F->M)',
-    'Reassigned(M->F)',
-    'Androgynous'
-  ].freeze
-  PERCEIVED_GENDER = [
-    '-',
-    'Female',
-    'Male',
-    'Neither',
-    'Fluid',
-    'Androgynous'
-  ].freeze
-  ROMANTIC_ORIENTATION = [
-    '-',
-    'Heteroromantic',
-    'Homoromantic',
-    'Biromantic',
-    'Panromantic',
-    'Aromantic'
-  ].freeze
-  SEXUAL_ORIENTATION = [
-    '-',
-    'Asexual',
-    'Gray-A',
-    'Demisexual',
-    'Sexual'
-  ].freeze
+  SEXUAL_EXPERIENCE = %w(
+    -
+    None
+    Some
+    Moderate
+    A\ lot
+  ).freeze
+  GENDER = %w(
+    -
+    Female
+    Male
+    Hormone\ Therapy\ (F->M)
+    Hormone\ Therapy\ (M->F)
+    Reassigned(F->M)
+    Reassigned(M->F)
+    Androgynous
+  ).freeze
+  PERCEIVED_GENDER = %w(
+    -
+    Female
+    Male
+    Neither
+    Fluid
+    Androgynous
+  ).freeze
+  ROMANTIC_ORIENTATION = %w(
+    -
+    Heteroromantic
+    Homoromantic
+    Biromantic
+    Panromantic
+    Aromantic
+  ).freeze
+  SEXUAL_ORIENTATION = %w(
+    -
+    Asexual
+    Gray-A
+    Demisexual
+    Sexual
+  ).freeze
 
   belongs_to :user
 
@@ -67,5 +67,4 @@ class SexualInfo < ActiveRecord::Base
     else  SexualInfo.const_get(type.upcase)[public_send(type)]
     end
   end
-
 end

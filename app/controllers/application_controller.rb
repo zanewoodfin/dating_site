@@ -1,3 +1,5 @@
+# Contains methods and actions needed by multiple controllers.
+# All controllers extend ApplicationController.
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
@@ -10,10 +12,12 @@ class ApplicationController < ActionController::Base
     @offline = params[:offline]
   end
 
-protected
+  protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:username, :email, :password, :password_confirmation) }
+    devise_parameter_sanitizer.for(:sign_up) do |sign_up|
+      sign_up.permit(:username, :email, :password, :password_confirmation)
+    end
   end
 
   def check_if_blocked
@@ -23,5 +27,4 @@ protected
   def update_last_activity
     current_user.try :touch
   end
-
 end

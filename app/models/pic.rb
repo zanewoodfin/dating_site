@@ -23,7 +23,7 @@ class Pic < ActiveRecord::Base
   before_destroy :remember_id
   after_destroy :remove_id_directory
 
-private
+  private
 
   def remember_id
     @id = id
@@ -35,7 +35,8 @@ private
   end
 
   def within_user_pic_limit
-    self.errors.add(:base, 'already have the max number of pics') if user.pics.count >= 6
+    if user.pics.count >= PIC_LIMIT
+      errors.add(:base, 'already have the max number of pics')
+    end
   end
-
 end

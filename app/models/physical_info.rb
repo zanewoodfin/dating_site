@@ -18,60 +18,65 @@
 class PhysicalInfo < ActiveRecord::Base
   attr_accessor :feet, :inches
 
-  BODY_TYPE = [
-    '-',
-    'Thin',
-    'Average',
-    'A few extra pounds',
-    'More to Love',
-    'Athletic',
-    'Muscular',
-    'Very Muscular'].freeze
-  BODY_HAIR = [
-    '-',
-    'Naturally hairless',
-    'Neatly shaven/waxed',
-    'Light',
-    'Moderate',
-    'Gorilla'].freeze
-  ETHNICITY = [
-    '-',
-    'Asian',
-    'Black',
-    'Caucasian',
-    'Hispanic',
-    'Indian',
-    'Mixed',
-    'Native American',
-    'Other'].freeze
-  EYE_COLOR = [
-    '-',
-    'Blue',
-    'Brown',
-    'Green',
-    'Hazel',
-    'Other'].freeze
+  BODY_TYPE = %w(
+    -
+    Thin
+    Average
+    A\ few\ extra\ pounds
+    More\ to\ Love
+    Athletic
+    Muscular
+    Very Muscular).freeze
+  BODY_HAIR = %w(
+    -
+    Naturally\ hairless
+    Neatly\ shaven/waxed
+    Light
+    Moderate
+    Gorilla).freeze
+  ETHNICITY = %w(
+    -
+    Asian
+    Black
+    Caucasian
+    Hispanic
+    Indian
+    Mixed
+    Native\ American
+    Other).freeze
+  EYE_COLOR = %w(
+    -
+    Blue
+    Brown
+    Green
+    Hazel
+    Other).freeze
   FEET = (0..8).to_a.freeze
-  HAIR_COLOR = [
-    '-',
-    'Bald',
-    'Blonde',
-    'Brunette',
-    'Hairless',
-    'Red',
-    'White'].freeze
+  HAIR_COLOR = %w(
+    -
+    Bald
+    Blonde
+    Brunette
+    Hairless
+    Red
+    White).freeze
   INCHES = (0..11).to_a.freeze
 
   belongs_to :user
 
-  validates :weight,
-    inclusion: { in: 0..1500 }
+  validates :weight, inclusion: { in: 0..1500 }
 
   after_find :set_feet_inches
   before_save :convert_to_height
 
   def self.display_attributes
-    [:ethnicity, :body_type, :eye_color, :hair_color, :body_hair, :height, :weight]
+    [:ethnicity,
+     :body_type,
+     :eye_color,
+     :hair_color,
+     :body_hair,
+     :height,
+     :weight]
   end
 
   def to_s(type = false)
@@ -83,7 +88,7 @@ class PhysicalInfo < ActiveRecord::Base
     end
   end
 
-private
+  private
 
   def set_feet_inches
     self.feet = get_feet
@@ -105,6 +110,4 @@ private
   def get_inches
     height % 12
   end
-
 end
-

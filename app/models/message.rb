@@ -30,32 +30,32 @@ class Message < ActiveRecord::Base
   end
 
   def remove_user(user)
-    self.removed_by_sender = true if user == sender
-    self.removed_by_recipient = true if user == recipient
-    if removed_by_sender && removed_by_recipient
-      self.destroy
-    else
-      self.save
-    end
+    removed_by_sender = true if user == sender
+    removed_by_recipient = true if user == recipient
+    removed_by_sender && removed_by_recipient ? destroy : save
   end
+
   def self.remove_user(user, contacts)
-    where(sender_id: user.id, recipient_id: contacts).update_all(removed_by_sender: true)
-    where(recipient_id: user.id, sender_id: contacts).update_all(removed_by_recipient: true)
+    where(sender_id: user.id, recipient_id: contacts)
+      .update_all(removed_by_sender: true)
+    where(recipient_id: user.id, sender_id: contacts)
+      .update_all(removed_by_recipient: true)
     where(removed_by_sender: true, removed_by_recipient: true).delete_all
   end
 
-private
+  private
 
   def set_recipient
-    self.recipient_id = User.where(username: recipient_username).first.id unless self.recipient_id
+    self.recipient = User.find_by_username(recipient_username) unless recipient
   end
 
   def sender_does_not_equal_recipient
-    self.errors.add(:base, 'cannot message yourself') if :sender == :recipient
+    errors.add(:base, 'cannot message yourself') if :sender == :recipient
   end
 
   def sender_not_blocked
-    self.errors.add(:base, 'this user has blocked you') if recipient.blocked.include? sender
+    if recipient.blocked.include? sender
+      errors.add(:base, 'this user has blocked you')
+    end
   end
-
 end

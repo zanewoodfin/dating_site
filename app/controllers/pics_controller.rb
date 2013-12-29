@@ -1,3 +1,4 @@
+# Handles user images
 class PicsController < ApplicationController
   before_action :set_pic, only: [:show, :update, :destroy]
   before_action :correct_user?, only: [:update, :destroy]
@@ -38,7 +39,7 @@ class PicsController < ApplicationController
     end
   end
 
-private
+  private
 
   def correct_user?
     redirect_to(root_path) unless current_user == @pic.user
@@ -51,5 +52,4 @@ private
   def pic_params
     params.require(:pic).permit(:image, :caption)
   end
-
 end

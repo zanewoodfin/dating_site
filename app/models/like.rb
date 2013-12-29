@@ -16,24 +16,23 @@ class Like < ActiveRecord::Base
   belongs_to :likeable, polymorphic: true
 
   validates_uniqueness_of :user_id, scope: [:likeable_id, :likeable_type]
-  validate :liker_does_not_equal_liked
-  validate :liker_not_blocked
+  validate :likeable_user
 
-private
+  private
+
+  def likeable_user
+    if likeable_type == 'User'
+      liker_does_not_equal_liked
+      liker_not_blocked
+    end
+  end
 
   def liker_does_not_equal_liked
-    if likeable_type == 'User'
-      self.errors.add(:base, 'cannot like yourself') if user_id == likeable_id
-    end
+    errors.add(:base, 'cannot like yourself') if user_id == likeable_id
   end
 
   def liker_not_blocked
-    if likeable_type == 'User'
-      liked = User.find(likeable_id)
-      puts "liked:#{liked.id} user:#{user.id}"
-      self.errors.add(:base, 'this user has blocked you') if liked.blocked.include? user
-    end
+    blocked = User.find(likeable_id).blocked
+    errors.add(:base, 'this user has blocked you') if blocked.include? user
   end
-
 end
-

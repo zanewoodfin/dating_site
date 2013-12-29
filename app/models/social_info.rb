@@ -15,50 +15,50 @@
 #
 
 class SocialInfo < ActiveRecord::Base
-  DIET = [
-    '-'
-  ].freeze
-  DRINKS = [
-    '-',
-    'Never',
-    'Rarely',
-    'Socially',
-    'Often',
-    'Every day'].freeze
-  DRUGS = [
-    '-',
-    'Never',
-    'Rarely',
-    'Socially',
-    'Often',
-    'Every day'].freeze
-  POLITICAL_ORIENTATION = [
-    '-',
-    'Socialist',
-    'Liberal',
-    'Moderate',
-    'Republican',
-    'Libertarian'
-  ].freeze
-  RELIGION = [
-    '-',
-    'Agnostic',
-    'Atheist',
-    'Baptist',
-    'Buddhist',
-    'Catholic',
-    'Christian',
-    'Lutheran',
-    'Methodist',
-    'Muslim',
-    'Presbyterian'].freeze
-  SMOKES = [
-    '-',
-    'Never',
-    'Very Rarely',
-    'Sometimes',
-    'Often',
-    'Every day'].freeze
+  DIET = %w(
+    -
+  ).freeze
+  DRINKS = %w(
+    -
+    Never
+    Rarely
+    Socially
+    Often
+    Every\ day).freeze
+  DRUGS = %w(
+    -
+    Never
+    Rarely
+    Socially
+    Often
+    Every\ day).freeze
+  POLITICAL_ORIENTATION = %w(
+    -
+    Socialist
+    Liberal
+    Moderate
+    Republican
+    Libertarian
+  ).freeze
+  RELIGION = %w(
+    -
+    Agnostic
+    Atheist
+    Baptist
+    Buddhist
+    Catholic
+    Christian
+    Lutheran
+    Methodist
+    Muslim
+    Presbyterian).freeze
+  SMOKES = %w(
+    -
+    Never
+    Very\ rarely
+    Sometimes
+    Often
+    Every\ day).freeze
 
   belongs_to :user
 
@@ -72,5 +72,4 @@ class SocialInfo < ActiveRecord::Base
     else  SocialInfo.const_get(type.upcase)[public_send(type)]
     end
   end
-
 end

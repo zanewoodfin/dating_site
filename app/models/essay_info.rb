@@ -8,12 +8,11 @@
 #  created_at  :datetime
 #  updated_at  :datetime
 #  headline    :string(255)
-#  looking_for :text
+#  looking_for :text             default("")
 #
 
 class EssayInfo < ActiveRecord::Base
   belongs_to :user
 
-  validates :headline,
-    length: 0..50
+  validates :headline, length: 0..50
 end

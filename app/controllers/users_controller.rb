@@ -1,3 +1,4 @@
+# Controls all user actions including update of all has_one associated objects.
 class UsersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_user, only: [:destroy, :edit, :show, :update]
@@ -10,20 +11,12 @@ class UsersController < ApplicationController
 
   def edit
     @section = params[:section]
-    @section_form = case @section
-    when 'physical' then
-      current_user.physical_info || PhysicalInfo.new
-    when 'social' then
-      current_user.social_info || SocialInfo.new
-    when 'sexual' then
-      current_user.sexual_info || SexualInfo.new
-    when 'essay' then
-      current_user.essay_info || EssayInfo.new
-    end
+    @section_form = current_user.get_info(@section)
   end
 
   def index
-    @users = current_user.pool.includes(:essay_info).paginate(page: params[:page])
+    @users =
+      current_user.pool.includes(:essay_info).paginate(page: params[:page])
   end
 
   def show
@@ -33,49 +26,30 @@ class UsersController < ApplicationController
   end
 
   def update
-    section = false
-    if params[:physical_info]
-      @physical_info = PhysicalInfo.new(physical_params)
-      if @physical_info.save
-        current_user.physical_info = @physical_info
-        current_user.save
-      else
-        section = 'physical'
-      end
-    elsif params[:social_info]
-      @social_info = SocialInfo.new(social_params)
-      if @social_info.save
-        current_user.social_info = @social_info
-        current_user.save
-      else
-        section = 'social'
-      end
-    elsif params[:sexual_info]
-        @sexual_info = SexualInfo.new(sexual_params)
-      if @sexual_info.save
-        current_user.sexual_info = @sexual_info
-        current_user.save
-      else
-        section = 'sexual'
-      end
-    elsif params[:essay_info]
-       @essay_info = EssayInfo.new(essay_params)
-      if @essay_info.save
-        current_user.essay_info = @essay_info
-        current_user.save
-      else
-        section = 'essay'
-      end
+    @section = false
+    %w(physical social sexual essay).each do |info_type|
+      update_info(info_type) if params["#{info_type}_info".to_sym]
     end
-
-    if section
-      redirect_to :back, section: section
+    if @section
+      redirect_to :back, section: @section
     else
       redirect_to current_user
     end
   end
 
-private
+  private
+
+  def update_info(info_type)
+    info_sym = "#{ info_type }_info=".to_sym
+    info_params = "#{ info_type }_params".to_sym
+    info_class = "#{ info_type }_info".camelize.constantize
+    info_object = info_class.new(send(info_params))
+    if info_object.valid?
+      current_user.public_send(info_sym, info_object)
+    else
+      @section = info_string.gsub(/_info/, '')
+    end
+  end
 
   def set_user
     @user = User.find(params[:id])
@@ -86,20 +60,24 @@ private
   end
 
   def physical_params
-    params.require(:physical_info).permit(:ethnicity, :body_type, :hair_color, :body_hair, :eye_color, :weight, :feet, :inches, :user_id)
+    params.require(:physical_info)
+      .permit(:ethnicity, :body_type, :hair_color, :body_hair, :eye_color,
+              :weight, :feet, :inches, :user_id)
   end
 
   def social_params
-    params.require(:social_info).permit(:religion, :political_orientation, :diet , :drugs, :smokes, :drinks, :user_id)
+    params.require(:social_info)
+      .permit(:religion, :political_orientation, :diet , :drugs, :smokes,
+              :drinks, :user_id)
   end
 
   def sexual_params
-    params.require(:sexual_info).permit(:gender, :perceived_gender, :romantic_orientation, :sexual_orientation, :sexual_experience, :user_id)
+    params.require(:sexual_info)
+      .permit(:gender, :perceived_gender, :romantic_orientation,
+              :sexual_orientation, :sexual_experience, :user_id)
   end
 
   def essay_params
     params.require(:essay_info).permit(:headline, :about_me, :looking_for)
   end
-
 end
-

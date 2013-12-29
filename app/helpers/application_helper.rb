@@ -1,5 +1,6 @@
+# Site-wide helper methods
 module ApplicationHelper
-  BASE_TITLE = "Dating Site"
+  BASE_TITLE = 'Dating Site'
 
   def full_title(page_title = '')
     if page_title.empty?
@@ -9,7 +10,7 @@ module ApplicationHelper
     end
   end
 
-  # sets heading to :heading, :title, or "The Network" in that priority
+  # sets heading to :heading, :title, or "BASE_TITLE" in that priority
   def heading(page_heading = '', page_title = '')
     default_heading = BASE_TITLE
     if page_heading.empty? && page_title.empty?
@@ -22,60 +23,63 @@ module ApplicationHelper
   end
 
   def flash_class(type)
-    "alert alert-" + case type
-      when :success then "success"
-      when :notice then "info"
-      when :alert then "warning"
-      when :error then "danger"
-      else "invalid-type"
-    end
+    'alert alert-' +
+      case type
+      when :success then 'success'
+      when :notice then 'info'
+      when :alert then 'warning'
+      when :error then 'danger'
+      else 'invalid-type'
+      end
   end
 
   def host
     if Rails.env.production?
-      ""
+      ''
     else
-      "http://localhost:3000/"
+      'http://localhost:3000/'
     end
   end
 
   def header_links
-    {
-      home: header_hash("Home", root_path, 'home'),
-      browse: header_hash("Browse", users_path, 'browse'),
-      messages: header_hash("Messages#{create_badge current_user.unread_message_count}", messages_path, 'messages'),
-      likes: header_hash("Likes#{create_badge current_user.new_likers_count}", likes_path, 'likes'),
-      blocked: header_hash("Blocked#{create_badge current_user.new_blockers_count}", blocked_users_path, 'blocked'),
-      my_profile: header_hash('My Profile', current_user, 'my_profile'),
-      logout: header_hash('Logout', destroy_user_session_path, 'logout', :delete)
-    }
+    message_badge = create_badge(current_user.unread_message_count)
+    likes_badge = create_badge(current_user.new_likers_count)
+    blockers_badge = create_badge(current_user.new_blockers_count)
+    { home: header_hash('Home', root_path),
+      browse: header_hash('Browse', users_path),
+      messages: header_hash("Messages#{ message_badge }", messages_path),
+      likes: header_hash("Likes#{ likes_badge }", likes_path),
+      blocked: header_hash("Blocked#{ blockers_badge }", blocked_users_path),
+      my_profile: header_hash('My Profile', current_user),
+      logout: header_hash('Logout', destroy_user_session_path, :delete) }
   end
 
   def format_time(time)
-    formatted_time = if(cookies["browser.timezone"])
-      time.in_time_zone(cookies["browser.timezone"]).strftime("%b %d, %Y %I:%M %P")
+    time_zone = cookies['browser.timezone']
+    if time_zone
+      time.in_time_zone(time_zone).strftime('%b %d, %Y %I:%M %P')
     else
-      time.strftime("%b %d, %Y %I:%M %P %Z")
-    end
-    formatted_time.gsub(/0(\d:\d\d)/) { $1 }
+      time.strftime('%b %d, %Y %I:%M %P %Z')
+    end.gsub(/0(?<new_time>\d:\d\d)/) { '\k<new_time>' }
   end
 
   def time_since(time)
     current_time = DateTime.now
     if time > current_time - 1.minute
-      "now"
+      'now'
     elsif time > current_time - 1.hour
-      pluralize(((current_time.to_i - time.to_i) / 60), 'minute') + " ago"
+      "#{ pluralize(((current_time.to_i - time.to_i) / 60), 'minute') } ago"
     elsif time > current_time - 1.day
-      pluralize(((current_time.to_i - time.to_i) / 3600), 'hour') + " ago"
+      "#{ pluralize(((current_time.to_i - time.to_i) / 3_600), 'hour') } ago"
     else
-      pluralize(((current_time.to_i - time.to_i) / 86400), 'day') + " ago"
+      "#{ pluralize(((current_time.to_i - time.to_i) / 86_400), 'day') } ago"
     end
   end
 
   def build_select(type, clazz)
     set = clazz.const_get(type.upcase)
-    [type,
+    [
+      type,
       {
         collection: (0...set.length).map { |index| [set[index], index] },
         include_blank: false
@@ -84,12 +88,14 @@ module ApplicationHelper
   end
 
   def populate_row(instance, attribute)
-    "<td>#{attribute.to_s.gsub(/_/, ' ')}</td><td>#{instance.to_s attribute}</td>"
+    "<td>#{attribute.to_s.gsub(/_/, ' ')}</td>"\
+      "<td>#{instance.to_s attribute}</td>"
   end
 
-private
+  private
 
-  def header_hash(text, path, id, method = false)
+  def header_hash(text, path, method = false)
+    id = text.downcase.gsub(/ <span.*span>/, '').gsub(/\s+/, '_')
     {
       text: text,
       path: path,
@@ -101,7 +107,7 @@ private
     if num > 0
       " <span class='badge'>#{num}</span>"
     else
-      ""
+      ''
     end
   end
 end
