@@ -1,6 +1,11 @@
 - provide :title, 'Members'
 
-= render @users
+= render 'search', search_form: @search_form
+
+- if @users.blank?
+  %p No users found.
+- else
+  = render @users
 
 .pull-right
   = will_paginate @users

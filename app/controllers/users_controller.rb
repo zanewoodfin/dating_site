@@ -15,8 +15,9 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users =
-      current_user.pool.includes(:essay_info).paginate(page: params[:page])
+    pool = current_user.pool
+    @search_form = SearchForm.new(params[:search_form] || {})
+    @users = search(pool).includes(:essay_info).paginate(page: params[:page])
   end
 
   def show
@@ -38,6 +39,15 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def search(pool)
+    max_distance = @search_form.max_distance
+    if max_distance.blank? || max_distance == 'any'
+      pool
+    else
+      pool.within(max_distance, origin: current_user)
+    end
+  end
 
   def update_info(info_type)
     info_sym = "#{ info_type }_info=".to_sym

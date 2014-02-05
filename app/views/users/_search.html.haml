@@ -1,0 +1,5 @@
+= simple_form_for search_form, url: users_path, method: :get do |f|
+  .row
+    .col-lg-6
+      = f.input :max_distance, collection: SearchForm::MAX_DISTANCE_OPTIONS, include_blank: false
+      = f.submit 'Search', class: 'btn btn-primary'
