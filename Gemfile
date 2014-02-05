@@ -37,6 +37,9 @@ gem 'bootstrap-sass', github: 'thomas-mcdonald/bootstrap-sass'
 
 gem 'newrelic_rpm'
 
+gem 'geokit-rails'
+gem 'area'
+
 # images upload/resize
 gem 'carrierwave'
 gem 'rmagick'

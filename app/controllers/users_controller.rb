@@ -59,6 +59,10 @@ class UsersController < ApplicationController
     redirect_to(root_path) unless current_user == @user
   end
 
+  def user_params
+    params.require(:user).permit(:username, :zip_code)
+  end
+
   def physical_params
     params.require(:physical_info)
       .permit(:ethnicity, :body_type, :hair_color, :body_hair, :eye_color,

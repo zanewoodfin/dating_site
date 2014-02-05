@@ -16,6 +16,9 @@
 #  created_at             :datetime
 #  updated_at             :datetime
 #  username               :string(255)
+#  zip_code               :string(255)
+#  latitude               :float
+#  longitude              :float
 #
 
 class User < ActiveRecord::Base
@@ -23,9 +26,12 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+  acts_as_mappable lat_column_name: :latitude,
+                   lng_column_name: :longitude
 
   # constants
   WORD_CHARS = /\A\w+\z/
+  INTEGERS = /\A[0-9]{5}\z/
 
   # username validations
   validates :username,
@@ -33,6 +39,11 @@ class User < ActiveRecord::Base
             uniqueness: { case_sensitive: false },
             length: 3..20,
             format: { with: WORD_CHARS }
+  validates :zip_code,
+            presence: true,
+            length: { is: 5 },
+            format: { with: INTEGERS }
+  validate :zip_code_has_coords
 
   # likes me
   has_many :liked_by, class_name: 'Like', as: :likeable, dependent: :destroy
@@ -68,6 +79,7 @@ class User < ActiveRecord::Base
   has_one :social_info, dependent: :destroy
   has_one :essay_info, dependent: :destroy
 
+  before_save :set_coordinates
   before_destroy :remember_id
   after_destroy :remove_pics_and_directories
 
@@ -122,7 +134,22 @@ class User < ActiveRecord::Base
     liked_by.where(new: true).count
   end
 
+  def region
+    zip_code.nil? ? '' : zip_code.to_region
+  end
+
   private
+
+  def zip_code_has_coords
+    if zip_code.to_latlon.nil?
+      errors.add(:zip_code, 'not found')
+    end
+  end
+
+  def set_coordinates
+    self.latitude = self.zip_code.to_lat.to_f
+    self.longitude = self.zip_code.to_lon.to_f
+  end
 
   def pluralize(number, word)
     "#{ number.to_s } #{ word }" + (number > 1 ? 's' : '')

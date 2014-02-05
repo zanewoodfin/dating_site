@@ -3,6 +3,14 @@
 - provide(:headline, @user.essay_info.headline) unless @user.essay_info.nil? || @user.essay_info.headline.blank?
 
 .row
+  .col-sm-12
+    %p
+      = @user.region
+      - if @user == current_user
+        = link_to "Edit", edit_user_registration_path(current_user)
+      %br
+      %br
+.row
   .col-sm-8
     .row
       .col-sm-8.col-sm-offset-2
@@ -11,7 +19,7 @@
 
     %br
 
-    %h3 About me
+    %h3= 'About'
     - if @user == current_user
       = link_to "Edit", edit_user_path(current_user, section: 'essay')
     .panel.panel-default

@@ -16,6 +16,9 @@
 #  created_at             :datetime
 #  updated_at             :datetime
 #  username               :string(255)
+#  zip_code               :string(255)
+#  latitude               :float
+#  longitude              :float
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
