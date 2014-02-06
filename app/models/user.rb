@@ -19,6 +19,7 @@
 #  zip_code               :string(255)
 #  latitude               :float
 #  longitude              :float
+#  birthday               :datetime
 #
 
 class User < ActiveRecord::Base
@@ -44,6 +45,7 @@ class User < ActiveRecord::Base
             length: { is: 5 },
             format: { with: INTEGERS }
   validate :zip_code_has_coords
+  validate :over_18
 
   # likes me
   has_many :liked_by, class_name: 'Like', as: :likeable, dependent: :destroy
@@ -138,12 +140,24 @@ class User < ActiveRecord::Base
     zip_code.nil? ? '' : zip_code.to_region
   end
 
+  def age
+    years_old = Date.today.year - birthday.year
+    years_old -= 1 if Date.today < birthday.to_date + years_old.years
+    years_old
+  end
+
   private
 
   def zip_code_has_coords
     if zip_code.to_latlon.nil?
       errors.add(:zip_code, 'not found')
     end
+  rescue
+    errors.add(:zip_code, 'invalid')
+  end
+
+  def over_18
+    errors.add(:birthday, 'must be over 18') if age < 18
   end
 
   def set_coordinates

@@ -42,11 +42,16 @@ class UsersController < ApplicationController
 
   def search(pool)
     max_distance = @search_form.max_distance
-    if max_distance.blank? || max_distance == 'any'
-      pool
-    else
-      pool.within(max_distance, origin: current_user)
+    min_birthday = DateTime.now - @search_form.max_age.to_i.years
+    pool = pool.where('birthday >= ?', min_birthday)
+    if @search_form.max_age.to_i < 99
+      max_birthday = DateTime.now - @search_form.min_age.to_i.years
+      pool = pool.where('birthday <= ?', max_birthday)
     end
+    unless max_distance.blank? || max_distance == 'any'
+      pool = pool.within(max_distance, origin: current_user)
+    end
+    pool
   end
 
   def update_info(info_type)

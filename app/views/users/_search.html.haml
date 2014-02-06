@@ -1,5 +1,11 @@
 = simple_form_for search_form, url: users_path, method: :get do |f|
   .row
-    .col-lg-6
+    .col-lg-4
       = f.input :max_distance, collection: SearchForm::MAX_DISTANCE_OPTIONS, include_blank: false
+    .col-lg-4
+      = f.input :min_age, collection: (18..99).to_a, include_blank: false
+    .col-lg-4
+      = f.input :max_age, collection: (18..99).to_a, include_blank: false
+  .row
+    .col-sm-12
       = f.submit 'Search', class: 'btn btn-primary'

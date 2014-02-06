@@ -1,9 +1,9 @@
-- provide :title, 'Members'
+- provide :title, 'Browse'
 
 = render 'search', search_form: @search_form
 
 - if @users.blank?
-  %p No users found.
+  %p No users match your search criteria.
 - else
   = render @users
 

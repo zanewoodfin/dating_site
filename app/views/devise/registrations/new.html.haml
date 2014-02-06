@@ -3,14 +3,37 @@
 = simple_form_for resource, as: resource_name, url: registration_path(resource_name) do |f|
   = f.error_notification
 
-  .form-inputs
-    = f.input :email, required: true, autofocus: true
-    = f.input :username, required: true
-    = f.input :zip_code, required: true
-    = f.input :password, required: true
-    = f.input :password_confirmation, required: true
+  .row
+    .col-lg-8
+      .form-inputs
+        = f.input :email, required: true, autofocus: true
+        = f.input :username, required: true
+        = content_tag :div, class: "form-group#{ ' has-error' unless @user.errors[:birthday].blank? }" do
+          = f.label :birthday, class: 'required control-label' do
+            %abbr{ title: "required" } *
+            Birthday
+          .row
+            .col-sm-4
+              - year = params[:birthday].try(:[], :year).to_i
+              = select_year (year == 0 ? Date.today : year),
+                { prefix: 'birthday', start_year: 1925, end_year: 2014 },
+                { class: "form-control" }
+            .col-sm-4
+              - month = params[:birthday].try(:[], :month).to_i
+              = select_month (month == 0 ? Date.today : month),
+                { prefix: 'birthday' },
+                { class: "form-control" }
+            .col-sm-4
+              - day = params[:birthday].try(:[], :day).to_i
+              = select_day (day == 0 ? Date.today : day),
+                { prefix: 'birthday' },
+                { class: "form-control" }
+          = f.error :birthday, id: 'user_birthday_error'
+        = f.input :zip_code, required: true
+        = f.input :password, required: true
+        = f.input :password_confirmation, required: true
 
-  .form-actions
-    = f.submit "Sign up", class: 'btn btn-primary'
+      .form-actions
+        = f.submit "Sign up", class: 'btn btn-primary'
 
 = render "devise/shared/links"

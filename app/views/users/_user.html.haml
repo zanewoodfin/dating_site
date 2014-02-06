@@ -1,7 +1,7 @@
 .panel.panel-default
   .panel-heading
     %h3.panel-title
-      %span.pull-left= user.try(:essay_info).try(:headline) || ''
+      %span.pull-left= link_to user.username, user
       %span.pull-right= "last activity: #{ time_since(user.updated_at) }"
     .clearfix
   .panel-body
@@ -11,6 +11,8 @@
           .thumbnail
             = image_tag user.default_pic(:thumb)
       .col-sm-7.col-md-9
-        = link_to user.username, user
+        %span.pull-left= "#{ user.age } years old"
+        %span.pull-right= user.region
+        .clearfix
         %br
-        .user-summary= raw user.try(:essay_info).try(:about_me)
+        %p= user.try(:essay_info).try(:headline) || ''
