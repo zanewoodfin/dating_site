@@ -174,7 +174,11 @@ class User < ActiveRecord::Base
   end
 
   def remove_pics_and_directories
-    pics.where(user_id: @id).destroy
-    FileUtils.remove_dir("#{Rails.root}/public/uploads/pic/#{@id}")
+    pics.where(user_id: @id).destroy_all
+    begin
+      FileUtils.remove_dir("#{Rails.root}/public/uploads/pic/#{@id}")
+    rescue => e
+      puts e.message
+    end
   end
 end

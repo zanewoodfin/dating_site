@@ -31,7 +31,11 @@ class Pic < ActiveRecord::Base
   end
 
   def remove_id_directory
-    FileUtils.remove_dir("#{Rails.root}/public/uploads/pic/#{@user.id}/#{@id}")
+    begin
+      FileUtils.remove_dir("#{Rails.root}/public/uploads/pic/#{@user.id}/#{@id}")
+    rescue => e
+      puts e.message
+    end
   end
 
   def within_user_pic_limit
