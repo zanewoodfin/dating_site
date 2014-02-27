@@ -16,7 +16,7 @@
   scroll = conversation.scrollTop == conversation.scrollHeight - conversation.offsetHeight
   <% @new_messages.each do |message| %>
     $('.message').last().after(
-        '<%= j render(partial: 'messages/message', locals: { message: message }) %>'
+        '<%= j render(partial: 'messages/message', locals: { message: message, contact: message.sender }) %>'
     );
   <% end %>
   <% @new_message = nil %>

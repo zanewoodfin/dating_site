@@ -1,13 +1,20 @@
-= form_tag controller: "messages", action: "mass_destroy" do
+- provide :title, 'Messages'
 
-  %table#message_table
+= form_tag controller: "messages", action: "mass_destroy" do
+  %table#message_table.table
     %thead
       %tr
-        %th{style: 'width: 85%;'} Message
-        %th Delete
+        %th
+        %th
+        %th Who
+        %th Last Message
+        %th When
     %tbody
-    = render partial: 'conversation_header', collection: @conversation_headers, as: :conversation_header
-
-  = submit_tag 'Delete selected', class: 'btn btn-primary pull-right'
+      - if @conversation_headers.blank?
+        %tr
+          %td{colspan: 5} No messages.
+      - else
+        = render partial: 'conversation_header', collection: @conversation_headers, as: :conversation_header
+  = submit_tag 'Delete selected', class: 'btn btn-primary'
   .pull-right
     = will_paginate @conversation_headers

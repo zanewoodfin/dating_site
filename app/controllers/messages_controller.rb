@@ -46,13 +46,14 @@ class MessagesController < ApplicationController
   end
 
   def show
-    contact =
+    contact_id =
       if params[:contact_id]
-        User.find(params[:contact_id])
+        params[:contact_id]
       else
         message = Message.find(params[:id])
-        message.sender == current_user ? message.recipient : message.sender
-      end
+        message.sender_id == current_user.id ? message.recipient_id : message.sender_id
+      end.to_i
+    contact = User.find_by_id(contact_id) || DeletedUser.new(contact_id)
     populate_conversation(contact)
   end
 
@@ -64,14 +65,10 @@ class MessagesController < ApplicationController
   end
 
   def populate_conversation(contact)
-    if current_user.contacts.include? contact
-      @messages = current_user.conversation(contact)
-      Message.where(sender_id: contact, recipient_id: current_user)
-        .update_all(read: true)
-      @message = Message.new
-      @recipient = User.find(contact)
-    else # unauthorized
-      redirect_to messages_path
-    end
+    @contact = contact
+    @messages = current_user.conversation(contact)
+    Message.where(sender_id: @contact.id, recipient_id: current_user.id)
+      .update_all(read: true)
+    @message = Message.new
   end
 end

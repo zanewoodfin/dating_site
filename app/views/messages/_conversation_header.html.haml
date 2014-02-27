@@ -1,26 +1,22 @@
-- contact = conversation_header[:contact]
+- contact = conversation_header[:with]
+- new_messages = conversation_header[:new_messages]
 - last_message = conversation_header[:last_message]
 
 %tr
   %td
-    .panel.panel-default
-      .panel-heading
-        %h3.panel-title
-          .pull-left
-            Sender:
-            = link_to (last_message.sender == current_user ? "You" : contact.username), last_message.sender
-          .pull-right
-            Last message:
-            = time_since(last_message.created_at)
-        .clearfix
-      .panel-body
-        .row
-          .col-sm-5.col-md-3
-            = link_to contact do
-              = contact.username
-              = image_tag contact.default_pic(:thumb), class: 'img-responsive'
-          .col-sm-7.col-md-9
-            = link_to message_path(0, contact_id: contact) do
-              %div= last_message.content
-  %td
     = check_box_tag 'user_ids[]', contact.id
+  %td
+    - if new_messages
+      = link_to message_path(0, contact_id: contact.id) do
+        %span.glyphicon.glyphicon-envelope
+  %td
+    - if contact.instance_of? User
+      = link_to contact do
+        = contact.username
+    - else
+      = contact.username
+  %td
+    = link_to message_path(0, contact_id: contact.id) do
+      = truncate last_message.content, length: 20
+  %td
+    = time_since last_message.created_at

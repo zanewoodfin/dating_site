@@ -1,9 +1,9 @@
-- if @recipient.nil?
+- if @contact.nil?
   = f.input :recipient_username
 - else
-  = f.hidden_field :recipient_id, value: @recipient.id
+  = f.hidden_field :recipient_id, value: @contact.id
 
 = f.input :content, as: :text, input_html: { rows: 4 },
-  label: "Message to #{ @recipient.username unless @recipient.nil?}"
+  label: "Message to #{ @contact.username unless @contact.nil?}"
 
 = f.submit class: 'btn btn-primary', value: 'Send'

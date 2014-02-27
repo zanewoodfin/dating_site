@@ -100,32 +100,43 @@ class User < ActiveRecord::Base
     pics.first.try(*args) || 'default_person.jpeg'
   end
 
-  def contacts
+  def conversation_headers
+    new_messages = {}
+    last_messages = {}
     senders = received_messages.includes(:sender)
-      .where(removed_by_recipient: false).map { |m| m.sender }
+      .where(removed_by_recipient: false).map do |message|
+        new_messages[message.sender_id] = true unless message.read
+        previous_message = last_messages[message.sender_id]
+        if previous_message.nil? || message.created_at > previous_message.created_at
+          last_messages[message.sender_id] = message
+        end
+        message.sender || DeletedUser.new(message.sender_id)
+      end
     recipients = sent_messages.includes(:recipient)
-      .where(removed_by_sender: false).map { |m| m.recipient }
-    people = senders + recipients
-    people ? people.uniq : []
+      .where(removed_by_sender: false).map do |message|
+        previous_message = last_messages[message.recipient_id]
+        if previous_message.nil? || message.created_at > previous_message.created_at
+          last_messages[message.recipient_id] = message
+        end
+        message.recipient || DeletedUser.new(message.recipient_id)
+      end
+    people = (senders + recipients).try(:uniq) || []
+    people.map do |person|
+      {
+        with: person,
+        new_messages: new_messages.fetch(person.id, false),
+        last_message: last_messages.fetch(person.id)
+      }
+    end
   end
 
   def unread_message_count
     received_messages.where(read: false, removed_by_recipient: false).count
   end
 
-  def conversation_headers
-    contacts.map do |contact|
-      {
-        contact: contact,
-        last_message: conversation(contact, :sender).last
-      }
-    end
-  end
-
-  def conversation(contact, included = [:sender, :recipient])
-    set = [contact, self]
-    Message.includes(included)
-      .where(sender_id: set, recipient_id: set).order('created_at ASC')
+  def conversation(contact)
+    set = [contact.id, self.id]
+    Message.where(sender_id: set, recipient_id: set).order('created_at ASC')
   end
 
   def new_blockers_count
