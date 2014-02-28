@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140206074658) do
+ActiveRecord::Schema.define(version: 20140227095222) do
 
   create_table "blocked_users", force: true do |t|
     t.integer  "user_id"
@@ -19,15 +19,6 @@ ActiveRecord::Schema.define(version: 20140206074658) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "new",        default: true
-  end
-
-  create_table "essay_infos", force: true do |t|
-    t.text     "about_me",    default: ""
-    t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "headline"
-    t.text     "looking_for", default: ""
   end
 
   create_table "likes", force: true do |t|
@@ -50,48 +41,12 @@ ActiveRecord::Schema.define(version: 20140206074658) do
     t.boolean  "read",                 default: false
   end
 
-  create_table "physical_infos", force: true do |t|
-    t.integer  "user_id"
-    t.integer  "ethnicity",  default: 0
-    t.integer  "height",     default: 0
-    t.integer  "body_type",  default: 0
-    t.integer  "weight",     default: 0
-    t.integer  "eye_color",  default: 0
-    t.integer  "hair_color", default: 0
-    t.integer  "body_hair",  default: 0
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "pics", force: true do |t|
     t.string   "image"
     t.string   "caption"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "sexual_infos", force: true do |t|
-    t.integer  "user_id"
-    t.integer  "sexual_experience",  default: 0
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "gender",             default: 0
-    t.integer  "perceived_gender",   default: 0
-    t.integer  "interested_in",      default: 0
-    t.integer  "sexual_orientation", default: 0
-  end
-
-  create_table "social_infos", force: true do |t|
-    t.integer  "user_id"
-    t.integer  "religion",              default: 0
-    t.integer  "smokes",                default: 0
-    t.integer  "drinks",                default: 0
-    t.integer  "drugs",                 default: 0
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "political_orientation", default: 0
-    t.integer  "diet",                  default: 0
   end
 
   create_table "users", force: true do |t|
@@ -112,6 +67,20 @@ ActiveRecord::Schema.define(version: 20140206074658) do
     t.float    "latitude"
     t.float    "longitude"
     t.datetime "birthday"
+    t.integer  "religion",               default: 0
+    t.integer  "smokes",                 default: 0
+    t.integer  "drinks",                 default: 0
+    t.integer  "drugs",                  default: 0
+    t.integer  "political_orientation",  default: 0
+    t.integer  "diet",                   default: 0
+    t.integer  "ethnicity",              default: 0
+    t.integer  "height",                 default: 0
+    t.integer  "body_type",              default: 0
+    t.integer  "eye_color",              default: 0
+    t.integer  "hair_color",             default: 0
+    t.string   "headline",               default: ""
+    t.text     "about_me",               default: ""
+    t.text     "looking_for",            default: ""
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

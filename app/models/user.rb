@@ -20,6 +20,20 @@
 #  latitude               :float
 #  longitude              :float
 #  birthday               :datetime
+#  religion               :integer          default(0)
+#  smokes                 :integer          default(0)
+#  drinks                 :integer          default(0)
+#  drugs                  :integer          default(0)
+#  political_orientation  :integer          default(0)
+#  diet                   :integer          default(0)
+#  ethnicity              :integer          default(0)
+#  height                 :integer          default(0)
+#  body_type              :integer          default(0)
+#  eye_color              :integer          default(0)
+#  hair_color             :integer          default(0)
+#  headline               :string(255)      default("")
+#  about_me               :text             default("")
+#  looking_for            :text             default("")
 #
 
 class User < ActiveRecord::Base
@@ -30,9 +44,7 @@ class User < ActiveRecord::Base
   acts_as_mappable lat_column_name: :latitude,
                    lng_column_name: :longitude
 
-  # constants
-  WORD_CHARS = /\A\w+\z/
-  INTEGERS = /\A[0-9]{5}\z/
+  attr_accessor :feet, :inches
 
   # username validations
   validates :username,
@@ -46,6 +58,7 @@ class User < ActiveRecord::Base
             format: { with: INTEGERS }
   validate :zip_code_has_coords
   validate :over_18
+  validates :headline, length: 0..50
 
   # likes me
   has_many :liked_by, class_name: 'Like', as: :likeable, dependent: :destroy
@@ -75,13 +88,9 @@ class User < ActiveRecord::Base
   # pics
   has_many :pics
 
-  # info
-  has_one :physical_info, dependent: :destroy
-  has_one :sexual_info, dependent: :destroy
-  has_one :social_info, dependent: :destroy
-  has_one :essay_info, dependent: :destroy
-
+  after_find :height_to_feet_and_inches
   before_save :set_coordinates
+  before_save :feet_and_inches_to_height
   before_destroy :remember_id
   after_destroy :remove_pics_and_directories
 
@@ -192,4 +201,26 @@ class User < ActiveRecord::Base
       puts e.message
     end
   end
+
+  def height_to_feet_and_inches
+    self.feet = get_feet
+    self.inches = get_inches
+  end
+
+  def feet_and_inches_to_height
+    self.height = begin
+      feet.to_i * 12 + inches.to_i
+    rescue
+      0
+    end
+  end
+
+  def get_feet
+    height / 12
+  end
+
+  def get_inches
+    height % 12
+  end
+
 end

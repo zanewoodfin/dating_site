@@ -13,8 +13,6 @@
 class Pic < ActiveRecord::Base
   mount_uploader :image, ImageUploader
 
-  PIC_LIMIT = 6
-
   belongs_to :user
 
   validates_presence_of :image

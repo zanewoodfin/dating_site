@@ -20,6 +20,20 @@
 #  latitude               :float
 #  longitude              :float
 #  birthday               :datetime
+#  religion               :integer          default(0)
+#  smokes                 :integer          default(0)
+#  drinks                 :integer          default(0)
+#  drugs                  :integer          default(0)
+#  political_orientation  :integer          default(0)
+#  diet                   :integer          default(0)
+#  ethnicity              :integer          default(0)
+#  height                 :integer          default(0)
+#  body_type              :integer          default(0)
+#  eye_color              :integer          default(0)
+#  hair_color             :integer          default(0)
+#  headline               :string(255)      default("")
+#  about_me               :text             default("")
+#  looking_for            :text             default("")
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html

@@ -17,25 +17,13 @@ class UsersController < ApplicationController
   def index
     pool = current_user.pool
     @search_form = SearchForm.new(params[:search_form] || {})
-    @users = search(pool).includes(:essay_info).paginate(page: params[:page])
+    @users = search(pool).paginate(page: params[:page])
   end
 
   def show
     check_if_blocked
     @user_pic = @user.default_pic
     @pic = Pic.new
-  end
-
-  def update
-    @section = false
-    %w(physical social sexual essay).each do |info_type|
-      update_info(info_type) if params["#{info_type}_info".to_sym]
-    end
-    if @section
-      redirect_to :back, section: @section
-    else
-      redirect_to current_user
-    end
   end
 
   private
@@ -72,31 +60,5 @@ class UsersController < ApplicationController
 
   def correct_user?
     redirect_to(root_path) unless current_user == @user
-  end
-
-  def user_params
-    params.require(:user).permit(:username, :zip_code)
-  end
-
-  def physical_params
-    params.require(:physical_info)
-      .permit(:ethnicity, :body_type, :hair_color, :body_hair, :eye_color,
-              :weight, :feet, :inches, :user_id)
-  end
-
-  def social_params
-    params.require(:social_info)
-      .permit(:religion, :political_orientation, :diet , :drugs, :smokes,
-              :drinks, :user_id)
-  end
-
-  def sexual_params
-    params.require(:sexual_info)
-      .permit(:gender, :perceived_gender, :romantic_orientation,
-              :sexual_orientation, :sexual_experience, :user_id)
-  end
-
-  def essay_params
-    params.require(:essay_info).permit(:headline, :about_me, :looking_for)
   end
 end

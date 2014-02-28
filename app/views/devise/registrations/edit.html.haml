@@ -21,6 +21,29 @@
     = f.input :password_confirmation, required: false
     = f.input :current_password, hint: 'we need your current password to confirm your changes', required: true
 
+  %h3 Physical
+  .form-inputs
+    = f.input *build_select(:feet)
+    = f.input *build_select(:inches)
+    = f.input *build_select(:ethnicity)
+    = f.input *build_select(:body_type)
+    = f.input *build_select(:eye_color)
+    = f.input *build_select(:hair_color)
+
+  %h3 Social
+  .form-inputs
+    = f.input *build_select(:religion)
+    = f.input *build_select(:political_orientation)
+    = f.input *build_select(:smokes)
+    = f.input *build_select(:drinks)
+    = f.input *build_select(:drugs)
+
+  %h3 Essay
+  .form-inputs
+    = f.input :headline
+    = f.input :about_me, as: :text, input_html: {rows: 10, class: 'tinymce'}
+    = f.input :looking_for, as: :text, input_html: {rows: 10, class: 'tinymce'}
+
   .form-actions
     = f.submit 'Update', class: 'btn btn-primary'
 
@@ -31,3 +54,5 @@
   = link_to 'Cancel my account', registration_path(resource_name), data: { confirm: 'Are you sure?' }, method: :delete
 
 = link_to 'Back', :back
+
+= tinymce

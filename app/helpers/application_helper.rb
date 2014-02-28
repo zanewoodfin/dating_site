@@ -76,10 +76,10 @@ module ApplicationHelper
     end
   end
 
-  def build_select(type, clazz)
-    set = clazz.const_get(type.upcase)
+  def build_select(attribute)
+    set = User.const_get(attribute.upcase)
     [
-      type,
+      attribute,
       {
         collection: (0...set.length).map { |index| [set[index], index] },
         include_blank: false

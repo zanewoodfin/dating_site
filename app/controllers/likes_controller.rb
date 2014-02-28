@@ -9,8 +9,8 @@ class LikesController < ApplicationController
   end
 
   def index
-    @likes_me = current_user.likes_me.includes(:essay_info)
-    @liked_users = current_user.liked_users.includes(:essay_info)
+    @likes_me = current_user.likes_me
+    @liked_users = current_user.liked_users
     current_user.liked_by.update_all(new: false)
   end
 

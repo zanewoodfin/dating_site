@@ -1,6 +1,6 @@
 - provide :title, @user.username
 
-- provide(:headline, @user.essay_info.headline) unless @user.essay_info.nil? || @user.essay_info.headline.blank?
+- provide :headline, @user.headline
 
 .row
   .col-sm-6
@@ -19,31 +19,61 @@
       .col-sm-8.col-sm-offset-2
         = link_to user_pics_path(user_id: @user.id) do
           = image_tag @user_pic, class: 'img-responsive'
-
     %br
 
     %h3= 'About'
-    - if @user == current_user
-      = link_to "Edit", edit_user_path(current_user, section: 'essay')
     .panel.panel-default
       .panel-body
-        - unless @user.essay_info.nil? || @user.essay_info.about_me.blank?
-          = raw @user.essay_info.about_me
+        = raw @user.about_me
     %h3 Looking for
-    - if @user == current_user
-      = link_to "Edit", edit_user_path(current_user, section: 'essay')
     .panel.panel-default
       .panel-body
-        - unless @user.essay_info.nil? || @user.essay_info.looking_for.blank?
-          = raw @user.essay_info.looking_for
+        = raw @user.looking_for
 
 
   .col-sm-4
-    = render 'section', user: @user, section: 'physical'
-
-    = render 'section', user: @user, section: 'social'
-
-    =# render 'section', user: @user, section: 'sexual'
+    .panel.panel-default
+      .panel-heading
+        %h4 Physical Info
+      .panel-body
+        %table.table
+          %tbody
+            %tr
+              %td Height
+              %td= "#{ @user.feet }' #{ @user.inches }\""
+            %tr
+              %td Body Type
+              %td= BODY_TYPE[@user.body_type]
+            %tr
+              %td Ethnicity
+              %td= ETHNICITY[@user.ethnicity]
+            %tr
+              %td Hair Color
+              %td= HAIR_COLOR[@user.hair_color]
+            %tr
+              %td Eye Color
+              %td= EYE_COLOR[@user.eye_color]
+    .panel.panel-default
+      .panel-heading
+        %h4 Social Info
+      .panel-body
+        %table.table
+          %tbody
+            %tr
+              %td Religion
+              %td= RELIGION[@user.religion]
+            %tr
+              %td Political Orientation
+              %td= POLITICAL_ORIENTATION[@user.political_orientation]
+            %tr
+              %td Smokes
+              %td= SMOKES[@user.smokes]
+            %tr
+              %td Drinks
+              %td= DRINKS[@user.drinks]
+            %tr
+              %td Drugs
+              %td= DRUGS[@user.drugs]
 
 - unless current_user == @user
   .pull-left
@@ -52,4 +82,3 @@
       = render 'like_unlike', user: @user
   .pull-right
     = link_to "Block" , blocked_users_path(blocked_id: @user), method: :post, class: 'btn btn-danger'
-
