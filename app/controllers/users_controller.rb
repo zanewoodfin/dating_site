@@ -10,8 +10,6 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @section = params[:section]
-    @section_form = current_user.get_info(@section)
   end
 
   def index
@@ -24,6 +22,16 @@ class UsersController < ApplicationController
     check_if_blocked
     @user_pic = @user.default_pic
     @pic = Pic.new
+  end
+
+  def update
+    if @user.update_attributes(user_params)
+      flash[:success] = 'Profile updated.'
+      redirect_to @user
+    else
+      flash[:error] = 'Invalid information.'
+      redirect_to :back
+    end
   end
 
   private
@@ -42,23 +50,15 @@ class UsersController < ApplicationController
     pool
   end
 
-  def update_info(info_type)
-    info_sym = "#{ info_type }_info=".to_sym
-    info_params = "#{ info_type }_params".to_sym
-    info_class = "#{ info_type }_info".camelize.constantize
-    info_object = info_class.new(send(info_params))
-    if info_object.valid?
-      current_user.public_send(info_sym, info_object)
-    else
-      @section = info_string.gsub(/_info/, '')
-    end
-  end
-
   def set_user
     @user = User.find(params[:id])
   end
 
   def correct_user?
     redirect_to(root_path) unless current_user == @user
+  end
+
+  def user_params
+    params.require(:user).permit(:feet, :inches, :ethnicity, :body_type, :eye_color, :hair_color, :religion, :political_orientation, :smokes, :drinks, :drugs, :headline, :about_me, :looking_for)
   end
 end

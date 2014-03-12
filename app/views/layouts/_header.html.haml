@@ -13,4 +13,3 @@
           - header_links.each do |key, link|
             = content_tag :li, class: (current_page?(link[:path]) ? 'active' : '') do
               = link_to raw(link.delete(:text)), link.delete(:path), link
-

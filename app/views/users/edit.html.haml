@@ -1,1 +1,53 @@
-= render "edit_#{@section}_info", section_form: @section_form
+%h2 Edit Profile
+
+= simple_form_for @user, html: { method: :put } do |f|
+  %h3 Physical
+  .form-inputs
+    .row
+      .col-sm-12.col-md-6
+        .row
+          .col-sm-12
+            %label.select.optional.control-label Height
+        .row
+          .col-sm-6
+            = f.input *build_select(:feet, label: false, include_blank: 'feet')
+          .col-sm-6
+            = f.input *build_select(:inches, label: false, include_blank: 'inches')
+      .col-sm-12.col-md-6
+        = f.input *build_select(:ethnicity)
+    .row
+      .col-sm-12.col-md-6
+        = f.input *build_select(:body_type)
+      .col-sm-12.col-md-6
+        = f.input *build_select(:eye_color)
+    .row
+      .col-sm-12.col-md-6
+        = f.input *build_select(:hair_color)
+
+  %h3 Social
+  .form-inputs
+    .row
+      .col-sm-12.col-md-6
+        = f.input *build_select(:religion)
+      .col-sm-12.col-md-6
+        = f.input *build_select(:political_orientation)
+    .row
+      .col-sm-12.col-md-6
+        = f.input *build_select(:smokes)
+      .col-sm-12.col-md-6
+        = f.input *build_select(:drinks)
+    .row
+      .col-sm-12.col-md-6
+        = f.input *build_select(:drugs)
+
+  %h3 Essay
+  .form-inputs
+    = f.input :headline
+    = f.input :about_me, as: :text, input_html: {rows: 10, class: 'tinymce'}
+    = f.input :looking_for, as: :text, input_html: {rows: 10, class: 'tinymce'}
+
+  .form-actions
+    = f.submit 'Update', class: 'btn btn-primary'
+    = link_to 'Cancel', :back, class: 'btn btn-default'
+
+= tinymce

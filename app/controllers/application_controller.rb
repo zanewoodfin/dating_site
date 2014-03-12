@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
       sign_up.permit(:username, :email, :birthday, :zip_code, :password, :password_confirmation)
     end
     devise_parameter_sanitizer.for(:account_update) do |account_update|
-      account_update.permit(:username, :email, :zip_code, :password, :password_confirmation, :current_password, :feet, :inches, :ethnicity, :body_type, :eye_color, :hair_color, :religion, :political_orientation, :smokes, :drinks, :drugs, :headline, :about_me, :looking_for)
+      account_update.permit(:username, :email, :zip_code, :password, :password_confirmation, :current_password)
     end
   end
 

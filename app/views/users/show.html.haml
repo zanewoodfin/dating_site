@@ -2,6 +2,12 @@
 
 - provide :headline, @user.headline
 
+- if @user == current_user
+  .row
+    .col-sm-12
+      .pull-right
+        = link_to 'Edit Profile', edit_user_path(current_user), class: 'btn btn-primary'
+        = link_to 'Edit Account', edit_user_registration_path(current_user), class: 'btn btn-default'
 .row
   .col-sm-6
     .pull-left
@@ -9,8 +15,6 @@
   .col-sm-6
     .pull-right
       = @user.region
-      - if @user == current_user
-        = link_to "Edit", edit_user_registration_path(current_user)
       %br
       %br
 .row

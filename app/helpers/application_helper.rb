@@ -76,14 +76,14 @@ module ApplicationHelper
     end
   end
 
-  def build_select(attribute)
+  def build_select(attribute, options = {})
     set = User.const_get(attribute.upcase)
     [
       attribute,
       {
         collection: (0...set.length).map { |index| [set[index], index] },
         include_blank: false
-      }
+      }.merge(options)
     ]
   end
 
